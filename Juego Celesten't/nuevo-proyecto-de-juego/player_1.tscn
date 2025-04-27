@@ -1,0 +1,68 @@
+[gd_scene load_steps=8 format=3 uid="uid://cq6quix4khac1"]
+
+[ext_resource type="Script" uid="uid://c4q44lwaskk4b" path="res://character_body_2d.gd" id="1_qh3su"]
+[ext_resource type="Texture2D" uid="uid://dn5365af6g7ow" path="res://Sprite/FREE_Samurai 2D Pixel Art v1.2/FREE_Samurai 2D Pixel Art v1.2/Sprites/IDLE.png" id="2_buxg0"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i66ns"]
+radius = 16.0
+height = 94.0
+
+[sub_resource type="Animation" id="Animation_lq3ur"]
+resource_name = "RUN"
+
+[sub_resource type="Animation" id="Animation_txlgs"]
+resource_name = "Idle"
+length = 1.00001
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+}
+
+[sub_resource type="Animation" id="Animation_dkxmd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gf2bl"]
+_data = {
+&"Idle": SubResource("Animation_txlgs"),
+&"RESET": SubResource("Animation_dkxmd"),
+&"RUN": SubResource("Animation_lq3ur")
+}
+
+[node name="Player 1" type="CharacterBody2D"]
+script = ExtResource("1_qh3su")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(3, 3)
+texture = ExtResource("2_buxg0")
+hframes = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 51)
+shape = SubResource("CapsuleShape2D_i66ns")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_gf2bl")
+}
