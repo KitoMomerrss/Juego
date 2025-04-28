@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cpwkpl3d06e31" path="res://Sprite/FREE_Samurai 2D Pixel Art v1.2/FREE_Samurai 2D Pixel Art v1.2/Sprites/ATTACK 1.png" id="5_wh5uk"]
 [ext_resource type="Texture2D" uid="uid://ca3oaajdf73yf" path="res://Sprite/Premium/JUMP.png" id="6_ehhk3"]
 [ext_resource type="Script" uid="uid://byvx4cft0ao7w" path="res://hitbox.gd" id="7_mt4e1"]
-[ext_resource type="Script" uid="uid://c8v8vjfhnbg10" path="res://hurtbox.gd" id="8_7d0q2"]
+[ext_resource type="Script" path="res://hurtbox.gd" id="8_7d0q2"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i66ns"]
 radius = 16.0

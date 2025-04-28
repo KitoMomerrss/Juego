@@ -99,6 +99,7 @@ func _physics_process(delta: float) -> void:
 			playback.travel("fall")
 	if is_dashing == true:
 		playback.travel("dash")
+		
 	
 	
 			
@@ -124,4 +125,7 @@ func get_yeet() -> void:
 #func si_physics():
 	set_physics_process(true)
 	
+
+
+
 	

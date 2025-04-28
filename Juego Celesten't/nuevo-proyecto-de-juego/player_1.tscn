@@ -1,13 +1,22 @@
-[gd_scene load_steps=43 format=3 uid="uid://cq6quix4khac1"]
+[gd_scene load_steps=45 format=3 uid="uid://cq6quix4khac1"]
 
 [ext_resource type="Script" uid="uid://dhdk1cdvcdwds" path="res://player_1.gd" id="1_txlgs"]
 [ext_resource type="Texture2D" uid="uid://dn5365af6g7ow" path="res://Sprite/FREE_Samurai 2D Pixel Art v1.2/FREE_Samurai 2D Pixel Art v1.2/Sprites/IDLE.png" id="2_buxg0"]
+[ext_resource type="Shader" uid="uid://0cxn8hnjqyrd" path="res://player_1.gdshader" id="2_dkxmd"]
 [ext_resource type="Texture2D" uid="uid://ckxkhswicuhbs" path="res://Sprite/FREE_Samurai 2D Pixel Art v1.2/FREE_Samurai 2D Pixel Art v1.2/Sprites/RUN.png" id="3_txlgs"]
 [ext_resource type="Texture2D" uid="uid://cpwkpl3d06e31" path="res://Sprite/FREE_Samurai 2D Pixel Art v1.2/FREE_Samurai 2D Pixel Art v1.2/Sprites/ATTACK 1.png" id="4_dkxmd"]
 [ext_resource type="Texture2D" uid="uid://ca3oaajdf73yf" path="res://Sprite/Premium/JUMP.png" id="5_gf2bl"]
 [ext_resource type="Texture2D" uid="uid://cmbvvvco3aj3t" path="res://Sprite/Premium/HURT.png" id="6_72vom"]
 [ext_resource type="Script" uid="uid://byvx4cft0ao7w" path="res://hitbox.gd" id="7_ugj0w"]
-[ext_resource type="Script" uid="uid://c8v8vjfhnbg10" path="res://hurtbox.gd" id="8_n0cnt"]
+[ext_resource type="Script" path="res://hurtbox.gd" id="8_n0cnt"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gf2bl"]
+shader = ExtResource("2_dkxmd")
+shader_parameter/opacity = 1.0
+shader_parameter/r = 0.0
+shader_parameter/g = 0.0
+shader_parameter/b = 0.0
+shader_parameter/mix_color = 0.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i66ns"]
 radius = 16.0
@@ -487,6 +496,7 @@ dash_speed = 1000
 [node name="Pivot" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="Pivot"]
+material = SubResource("ShaderMaterial_gf2bl")
 position = Vector2(-6, 0)
 scale = Vector2(3, 3)
 texture = ExtResource("2_buxg0")
