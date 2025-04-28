@@ -1,13 +1,13 @@
-[gd_scene load_steps=43 format=3 uid="uid://cq6quix4khac1"]
+[gd_scene load_steps=43 format=3 uid="uid://dj3arf08sg3pk"]
 
-[ext_resource type="Script" uid="uid://dhdk1cdvcdwds" path="res://player_1.gd" id="1_txlgs"]
-[ext_resource type="Texture2D" uid="uid://dn5365af6g7ow" path="res://Sprite/FREE_Samurai 2D Pixel Art v1.2/FREE_Samurai 2D Pixel Art v1.2/Sprites/IDLE.png" id="2_buxg0"]
-[ext_resource type="Texture2D" uid="uid://ckxkhswicuhbs" path="res://Sprite/FREE_Samurai 2D Pixel Art v1.2/FREE_Samurai 2D Pixel Art v1.2/Sprites/RUN.png" id="3_txlgs"]
-[ext_resource type="Texture2D" uid="uid://cpwkpl3d06e31" path="res://Sprite/FREE_Samurai 2D Pixel Art v1.2/FREE_Samurai 2D Pixel Art v1.2/Sprites/ATTACK 1.png" id="4_dkxmd"]
-[ext_resource type="Texture2D" uid="uid://ca3oaajdf73yf" path="res://Sprite/Premium/JUMP.png" id="5_gf2bl"]
-[ext_resource type="Texture2D" uid="uid://cmbvvvco3aj3t" path="res://Sprite/Premium/HURT.png" id="6_72vom"]
-[ext_resource type="Script" uid="uid://byvx4cft0ao7w" path="res://hitbox.gd" id="7_ugj0w"]
-[ext_resource type="Script" uid="uid://c8v8vjfhnbg10" path="res://hurtbox.gd" id="8_n0cnt"]
+[ext_resource type="Script" uid="uid://c4q44lwaskk4b" path="res://character_body_2d.gd" id="1_6iqoo"]
+[ext_resource type="Texture2D" uid="uid://dn5365af6g7ow" path="res://Sprite/FREE_Samurai 2D Pixel Art v1.2/FREE_Samurai 2D Pixel Art v1.2/Sprites/IDLE.png" id="2_jaoer"]
+[ext_resource type="Texture2D" uid="uid://cmbvvvco3aj3t" path="res://Sprite/Premium/HURT.png" id="3_8lhrm"]
+[ext_resource type="Texture2D" uid="uid://ckxkhswicuhbs" path="res://Sprite/FREE_Samurai 2D Pixel Art v1.2/FREE_Samurai 2D Pixel Art v1.2/Sprites/RUN.png" id="4_up5o4"]
+[ext_resource type="Texture2D" uid="uid://cpwkpl3d06e31" path="res://Sprite/FREE_Samurai 2D Pixel Art v1.2/FREE_Samurai 2D Pixel Art v1.2/Sprites/ATTACK 1.png" id="5_wh5uk"]
+[ext_resource type="Texture2D" uid="uid://ca3oaajdf73yf" path="res://Sprite/Premium/JUMP.png" id="6_ehhk3"]
+[ext_resource type="Script" uid="uid://byvx4cft0ao7w" path="res://hitbox.gd" id="7_mt4e1"]
+[ext_resource type="Script" uid="uid://c8v8vjfhnbg10" path="res://hurtbox.gd" id="8_7d0q2"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i66ns"]
 radius = 16.0
@@ -27,7 +27,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("6_72vom")]
+"values": [ExtResource("3_8lhrm")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -93,7 +93,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_buxg0")]
+"values": [ExtResource("2_jaoer")]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -144,7 +144,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_buxg0")]
+"values": [ExtResource("2_jaoer")]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -186,7 +186,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("3_txlgs")]
+"values": [ExtResource("4_up5o4")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -239,7 +239,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("4_dkxmd")]
+"values": [ExtResource("5_wh5uk")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -293,7 +293,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("5_gf2bl")]
+"values": [ExtResource("6_ehhk3")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -347,7 +347,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("5_gf2bl")]
+"values": [ExtResource("6_ehhk3")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -476,20 +476,21 @@ height = 102.0
 radius = 19.0
 height = 98.0
 
-[node name="Player 1" type="CharacterBody2D"]
+[node name="Player 2" type="CharacterBody2D"]
 collision_layer = 2
-script = ExtResource("1_txlgs")
+script = ExtResource("1_6iqoo")
 speed = 500
 jump_force = -700
 gravity = 1500
 dash_speed = 1000
 
 [node name="Pivot" type="Node2D" parent="."]
+scale = Vector2(-1, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="Pivot"]
 position = Vector2(-6, 0)
 scale = Vector2(3, 3)
-texture = ExtResource("2_buxg0")
+texture = ExtResource("2_jaoer")
 hframes = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -506,7 +507,9 @@ tree_root = SubResource("AnimationNodeStateMachine_utsw1")
 anim_player = NodePath("../AnimationPlayer")
 
 [node name="Hitbox" type="Area2D" parent="."]
-script = ExtResource("7_ugj0w")
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("7_mt4e1")
 metadata/_custom_type_script = "uid://byvx4cft0ao7w"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
@@ -515,9 +518,7 @@ shape = SubResource("CapsuleShape2D_s08of")
 disabled = true
 
 [node name="Hurtbox" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 2
-script = ExtResource("8_n0cnt")
+script = ExtResource("8_7d0q2")
 metadata/_custom_type_script = "uid://c8v8vjfhnbg10"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]

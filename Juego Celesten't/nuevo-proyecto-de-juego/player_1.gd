@@ -36,14 +36,14 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	
 	#Daño
-	var move_input = Input.get_axis("2.move.L", "2.move.R")
+	var move_input = Input.get_axis("1.Move.L", "1.Move.R")
 	
 	var input_direction = Vector2.ZERO
 
 	# Detectar inputs de movimiento
 	#input_direction.x = Input.get_action_strength("1.Move.R") - Input.get_action_strength("1.Move.R")
-	input_direction.x = Input.get_axis("2.move.L", "2.move.R")
-	input_direction.y = Input.get_action_strength("2.move.D") - Input.get_action_strength("2.move.U")
+	input_direction.x = Input.get_axis("1.Move.L", "1.Move.R")
+	input_direction.y = Input.get_action_strength("1.Move.D") - Input.get_action_strength("1.Move.U")
 	input_direction = input_direction.normalized()
 	
 	
@@ -60,17 +60,17 @@ func _physics_process(delta: float) -> void:
 		#var move_input = Input.get_axis("1.Move.L", "1.Move.R")
 		#velocity.x = move_toward(velocity.x, speed * move_input, acceleration * delta)
 		
-		velocity.x = (Input.get_action_strength("2.move.R") - Input.get_action_strength("2.move.L"))* speed
+		velocity.x = (Input.get_action_strength("1.Move.R") - Input.get_action_strength("1.Move.L"))* speed
 		#velocity.x = speed
 		# Aplicar gravedad
 		velocity.y += gravity*delta
 
 		# Saltar
-		if is_on_floor() and Input.is_action_just_pressed("2.jump"):
+		if is_on_floor() and Input.is_action_just_pressed("1.Jump"):
 			velocity.y = jump_force
 
 		# Iniciar dash
-		if can_dash and Input.is_action_just_pressed("2.dash"):
+		if can_dash and Input.is_action_just_pressed("1.Dash"):
 			if input_direction != Vector2.ZERO:
 				start_dash(input_direction)
 			else:
