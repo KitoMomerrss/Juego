@@ -16,8 +16,6 @@ extends CharacterBody2D
 
 @onready var hurtbox: Hurtbox = $Hurtbox
 
-signal dash_start
-signal dash_end
 
 #Dash
 @export var dash_speed = 600
@@ -33,8 +31,6 @@ func _ready() -> void:
 	
 
 
-	
-	
 func _physics_process(delta: float) -> void:
 	
 	#Daño
@@ -52,7 +48,6 @@ func _physics_process(delta: float) -> void:
 	
 		
 	if is_dashing:
-		
 		# Durante el dash, nos movemos solo en la dirección del dash
 		velocity = dash_direction * dash_speed 
 		dash_timer -= delta
@@ -60,6 +55,7 @@ func _physics_process(delta: float) -> void:
 			is_dashing = false
 			emit_signal("dash_end")
 			velocity.y = 0
+			pivot.rotation = 0  # Resetea la rotación
 	else:
 		# Movimiento normal
 		#var move_input = Input.get_axis("1.Move.L", "1.Move.R")
@@ -76,7 +72,6 @@ func _physics_process(delta: float) -> void:
 
 		# Iniciar dash
 		if can_dash and Input.is_action_just_pressed("1.Dash"):
-			emit_signal("dash_start")
 			if input_direction != Vector2.ZERO:
 				start_dash(input_direction)
 			else:
@@ -90,7 +85,7 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 	
-	#animaciones
+	# Animaciones
 	if move_input != 0:
 		pivot.scale.x = sign(move_input)
 	if is_on_floor():
@@ -115,8 +110,22 @@ func start_dash(direction):
 	dash_timer = dash_time
 	dash_direction = direction.normalized()
 	velocity = dash_direction * dash_speed
-	can_dash = true
 
+	# Rotar el nodo Pivot (solo visual, no afecta la física)
+	# OJO: pivot.rotation rota en radianes
+	pivot.rotation = dash_direction.angle()
+
+	# Flip horizontal solo si el dash es horizontal o predominantemente horizontal
+	if abs(dash_direction.x) > 0.1:
+		pivot.scale.x = sign(dash_direction.x)
+	can_dash = true # Cambiar eventualmenteddddddd
+
+'''
+func dash_rot(move_input):
+	if -1.57079637050629 < pivot.rotation and pivot.rotation < 1.57079637050629:
+		pivot.scale.x = sign(move_input) # El pivot se contra-espeja
+	pivot.rotation = direction.angle() # Rotación por dirección del dash
+'''
 
 func get_hit(knockback: int) -> void:
 	velocity.y = - knockback
