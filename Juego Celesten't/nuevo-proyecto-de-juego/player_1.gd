@@ -54,7 +54,7 @@ func _physics_process(delta: float) -> void:
 	if is_dashing:
 		
 		# Durante el dash, nos movemos solo en la dirección del dash
-		velocity = dash_direction * dash_speed
+		velocity = dash_direction * dash_speed 
 		dash_timer -= delta
 		if dash_timer <= 0:
 			is_dashing = false
@@ -81,7 +81,7 @@ func _physics_process(delta: float) -> void:
 				start_dash(input_direction)
 			else:
 				# Si no hay dirección presionada, dasha hacia donde está mirando el personaje (ejemplo: hacia la derecha)
-				start_dash(Vector2(0, 1))
+				start_dash(Vector2(pivot.scale.x, 0))
 
 	# Resetear dash al tocar el suelo
 	if is_on_floor() and not is_dashing:
@@ -124,10 +124,10 @@ func get_hit(knockback: int) -> void:
 	get_yeet()
 	
 func get_yeet() -> void:
-	set_physics_process(false)
+	#set_physics_process(false)
 	playback.travel("Hit")
 	print("aaa")
-	await animation_tree.animation_finished
+	#await animation_tree.animation_finished
 	#si_physics()
 #func si_physics():
 	set_physics_process(true)

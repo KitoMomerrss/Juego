@@ -1,6 +1,6 @@
 [gd_scene load_steps=43 format=3 uid="uid://dj3arf08sg3pk"]
 
-[ext_resource type="Script" uid="uid://c4q44lwaskk4b" path="res://character_body_2d.gd" id="1_6iqoo"]
+[ext_resource type="Script" uid="uid://c4q44lwaskk4b" path="res://player2.gd" id="1_6iqoo"]
 [ext_resource type="Texture2D" uid="uid://dn5365af6g7ow" path="res://Sprite/FREE_Samurai 2D Pixel Art v1.2/FREE_Samurai 2D Pixel Art v1.2/Sprites/IDLE.png" id="2_jaoer"]
 [ext_resource type="Texture2D" uid="uid://cmbvvvco3aj3t" path="res://Sprite/Premium/HURT.png" id="3_8lhrm"]
 [ext_resource type="Texture2D" uid="uid://ckxkhswicuhbs" path="res://Sprite/FREE_Samurai 2D Pixel Art v1.2/FREE_Samurai 2D Pixel Art v1.2/Sprites/RUN.png" id="4_up5o4"]

@@ -492,7 +492,7 @@ states/fall/position = Vector2(558, -187)
 states/jump/node = SubResource("AnimationNodeAnimation_qqcrl")
 states/jump/position = Vector2(451, -187)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_8nydg"), "Idle", "RUN", SubResource("AnimationNodeStateMachineTransition_fvdx0"), "RUN", "dash", SubResource("AnimationNodeStateMachineTransition_efhue"), "Idle", "dash", SubResource("AnimationNodeStateMachineTransition_3phom"), "dash", "RUN", SubResource("AnimationNodeStateMachineTransition_jrl08"), "RUN", "Idle", SubResource("AnimationNodeStateMachineTransition_qdsuw"), "dash", "Idle", SubResource("AnimationNodeStateMachineTransition_k0xj2"), "Idle", "jump", SubResource("AnimationNodeStateMachineTransition_yef3s"), "jump", "fall", SubResource("AnimationNodeStateMachineTransition_mviyr"), "jump", "dash", SubResource("AnimationNodeStateMachineTransition_d614h"), "fall", "dash", SubResource("AnimationNodeStateMachineTransition_dnvjy"), "dash", "fall", SubResource("AnimationNodeStateMachineTransition_cu0p0"), "fall", "RUN", SubResource("AnimationNodeStateMachineTransition_oexav"), "RUN", "jump", SubResource("AnimationNodeStateMachineTransition_43kbg"), "Hit", "fall", SubResource("AnimationNodeStateMachineTransition_txlgs"), "Hit", "Idle", SubResource("AnimationNodeStateMachineTransition_dkxmd")]
-graph_offset = Vector2(-117, -284)
+graph_offset = Vector2(-217, -232)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s08of"]
 radius = 24.0
@@ -507,7 +507,7 @@ collision_layer = 2
 script = ExtResource("1_txlgs")
 speed = 300
 gravity = 1800
-dash_speed = 1000
+dash_speed = 1400
 
 [node name="Pivot" type="Node2D" parent="."]
 

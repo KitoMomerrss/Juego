@@ -111,7 +111,7 @@ func start_dash(direction):
 
 
 func get_hit(knockback: int) -> void:
-	velocity.y = - knockback
+	velocity.y = -knockback
 	velocity.x = knockback
 	get_yeet()
 	
