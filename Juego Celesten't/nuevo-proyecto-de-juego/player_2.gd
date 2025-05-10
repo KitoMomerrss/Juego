@@ -161,7 +161,7 @@ func get_hit(knockback: int) -> void:
 	get_yeet()
 	
 func get_yeet() -> void:
-	set_physics_process(false)
+	#set_physics_process(false)
 	playback.travel("Hit")
 	print("aaa")
 	await animation_tree.animation_finished
