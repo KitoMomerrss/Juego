@@ -13,8 +13,12 @@ extends CharacterBody2D
 @onready var playback = animation_tree.get("parameters/playback")
 
 @onready var pivot: Node2D = $Pivot
+@onready var sprite_flipper: Node2D = $Pivot/SpriteFlipper
+
+
 
 @onready var hurtbox: Hurtbox = $Hurtbox
+
 
 
 #Dash
@@ -55,7 +59,9 @@ func _physics_process(delta: float) -> void:
 			is_dashing = false
 			emit_signal("dash_end")
 			velocity.y = 0
-			pivot.rotation = 0  # Resetea la rotación
+			# Resetea la rotación
+			pivot.rotation = 0 
+			sprite_flipper.scale.y = 1
 	else:
 		# Movimiento normal
 		#var move_input = Input.get_axis("1.Move.L", "1.Move.R")
@@ -76,18 +82,20 @@ func _physics_process(delta: float) -> void:
 				start_dash(input_direction)
 			else:
 				# Si no hay dirección presionada, dasha hacia donde está mirando el personaje (ejemplo: hacia la derecha)
-				start_dash(Vector2(pivot.scale.x, 0))
+				start_dash(Vector2(sprite_flipper.scale.x, 0))
 
 	# Resetear dash al tocar el suelo
 	if is_on_floor() and not is_dashing:
 		can_dash = true
 
+	#if move_input != 0 and not is_dashing:
+	#	sprite_flipper.rotation = 0 #sign(move_input)
 	
 	move_and_slide()
 	
 	# Animaciones
 	if move_input != 0:
-		pivot.scale.x = sign(move_input)
+		sprite_flipper.scale.x = sign(move_input)
 	if is_on_floor():
 		if abs(velocity.x) > 30:
 			playback.travel("RUN")
@@ -102,30 +110,36 @@ func _physics_process(delta: float) -> void:
 	if is_dashing == true:
 		playback.travel("dash")
 		
-		
-			
+
+
 func start_dash(direction):
 	is_dashing = true
 	can_dash = false
 	dash_timer = dash_time
 	dash_direction = direction.normalized()
 	velocity = dash_direction * dash_speed
-
-	# Rotar el nodo Pivot (solo visual, no afecta la física)
-	# OJO: pivot.rotation rota en radianes
+	
+	# Rotar el Pivot al ángulo del dash
 	pivot.rotation = dash_direction.angle()
+	print(pivot.rotation)
+	
+	if abs(pivot.rotation) > 1.57079637050629: # Si dasheamos hacia la izq
+		sprite_flipper.scale.y = -1
+		sprite_flipper.scale.x = -1
+		print("rotacion")
 
-	# Flip horizontal solo si el dash es horizontal o predominantemente horizontal
-	if abs(dash_direction.x) > 0.1:
-		pivot.scale.x = sign(dash_direction.x)
-	can_dash = true # Cambiar eventualmenteddddddd
+	# Flip visual: solo el flipper cambia su scale.x
+	#if abs(dash_direction.x) > 0.1:
+	#	sprite_flipper.scale.x = sign(dash_direction.x)
+		
+	can_dash = true # Cambiar eventualmente
 
 '''
-func dash_rot(move_input):
-	if -1.57079637050629 < pivot.rotation and pivot.rotation < 1.57079637050629:
-		pivot.scale.x = sign(move_input) # El pivot se contra-espeja
-	pivot.rotation = direction.angle() # Rotación por dirección del dash
+if 1.57079637050629 < pivot.rotation and pivot.rotation < -1.57079637050629:
+		sprite_flipper.scale.y = -1
+		print("asd")
 '''
+
 
 func get_hit(knockback: int) -> void:
 	velocity.y = - knockback
