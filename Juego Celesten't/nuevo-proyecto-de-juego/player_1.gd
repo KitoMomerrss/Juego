@@ -28,6 +28,7 @@ var dash_timer = 0.0
 var can_dash = true
 
 
+
 func _ready() -> void:
 	pass
 	
@@ -60,7 +61,14 @@ func _physics_process(delta: float) -> void:
 			is_dashing = false
 			emit_signal("dash_end")
 			velocity.y = 0
+		
+		#rotacion del sprite
+		
+		
+		
 	else:
+	
+		
 		# Movimiento normal
 		#var move_input = Input.get_axis("1.Move.L", "1.Move.R")
 		#velocity.x = move_toward(velocity.x, speed * move_input, acceleration * delta)
@@ -79,9 +87,11 @@ func _physics_process(delta: float) -> void:
 			emit_signal("dash_start")
 			if input_direction != Vector2.ZERO:
 				start_dash(input_direction)
+				
 			else:
 				# Si no hay dirección presionada, dasha hacia donde está mirando el personaje (ejemplo: hacia la derecha)
 				start_dash(Vector2(pivot.scale.x, 0))
+				
 
 	# Resetear dash al tocar el suelo
 	if is_on_floor() and not is_dashing:
@@ -108,7 +118,7 @@ func _physics_process(delta: float) -> void:
 		playback.travel("dash")
 		
 		
-			
+
 func start_dash(direction):
 	is_dashing = true
 	can_dash = false

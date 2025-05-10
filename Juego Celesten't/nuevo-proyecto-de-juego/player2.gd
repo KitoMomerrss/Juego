@@ -14,7 +14,22 @@ extends CharacterBody2D
 
 @onready var pivot: Node2D = $Pivot
 
+
+
+
+var knockback_time = 0
+var is_knockback = false
+
 @onready var hurtbox: Hurtbox = $Hurtbox
+
+
+
+
+
+
+
+
+
 
 
 #Dash
@@ -27,6 +42,7 @@ var can_dash = true
 
 
 func _ready() -> void:
+#	hurtbox.apply_knockback.connect(_player_apply_knockback)
 	pass
 	
 
@@ -55,6 +71,19 @@ func _physics_process(delta: float) -> void:
 		dash_timer -= delta
 		if dash_timer <= 0:
 			is_dashing = false
+	
+	#estar en knocback
+	#if knocked_timeout > 0:
+		#for a certain timeout the player can't move the character or jump
+	#	knocked_timeout -= delta
+	if is_knockback:
+		knockback_time -= delta
+		velocity = velocity.move_toward(Vector2.ZERO, delta * 500)
+		if knockback_time <= 0.0:
+			is_knockback = false	
+		
+		
+		
 	else:
 		# Movimiento normal
 		#var move_input = Input.get_axis("1.Move.L", "1.Move.R")
@@ -100,8 +129,24 @@ func _physics_process(delta: float) -> void:
 	if is_dashing == true:
 		playback.travel("dash")
 	
+
+#funciones knocback	
+#func _player_apply_knockback(enemyHitbox: Area2D):
+#	var knockback_direction : Vector2 = Vector2(1 , 1).normalized()
 	
-			
+#	velocity = knockback_direction * knockback_power
+#	knocked_timeout = .4
+	
+func apply_knockback(direction: Vector2, force: float):
+	var knockback_velocity = direction.normalized() * force
+	velocity = knockback_velocity  # si usas physics-based movement
+	is_knockback = true
+	knockback_time = 0.5 # segundos de knockback
+	Debug.log("por que no vuela")
+
+
+
+
 func start_dash(direction):
 	is_dashing = true
 	can_dash = false

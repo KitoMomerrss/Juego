@@ -492,10 +492,10 @@ states/fall/position = Vector2(558, -187)
 states/jump/node = SubResource("AnimationNodeAnimation_qqcrl")
 states/jump/position = Vector2(451, -187)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_8nydg"), "Idle", "RUN", SubResource("AnimationNodeStateMachineTransition_fvdx0"), "RUN", "dash", SubResource("AnimationNodeStateMachineTransition_efhue"), "Idle", "dash", SubResource("AnimationNodeStateMachineTransition_3phom"), "dash", "RUN", SubResource("AnimationNodeStateMachineTransition_jrl08"), "RUN", "Idle", SubResource("AnimationNodeStateMachineTransition_qdsuw"), "dash", "Idle", SubResource("AnimationNodeStateMachineTransition_k0xj2"), "Idle", "jump", SubResource("AnimationNodeStateMachineTransition_yef3s"), "jump", "fall", SubResource("AnimationNodeStateMachineTransition_mviyr"), "jump", "dash", SubResource("AnimationNodeStateMachineTransition_d614h"), "fall", "dash", SubResource("AnimationNodeStateMachineTransition_dnvjy"), "dash", "fall", SubResource("AnimationNodeStateMachineTransition_cu0p0"), "fall", "RUN", SubResource("AnimationNodeStateMachineTransition_oexav"), "RUN", "jump", SubResource("AnimationNodeStateMachineTransition_43kbg"), "Hit", "fall", SubResource("AnimationNodeStateMachineTransition_txlgs"), "Hit", "Idle", SubResource("AnimationNodeStateMachineTransition_dkxmd")]
-graph_offset = Vector2(-217, -232)
+graph_offset = Vector2(-387, -120)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s08of"]
-radius = 24.0
+radius = 19.0
 height = 102.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3aesf"]
@@ -536,7 +536,7 @@ script = ExtResource("7_ugj0w")
 metadata/_custom_type_script = "uid://byvx4cft0ao7w"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(0, 51)
+position = Vector2(1, 51)
 shape = SubResource("CapsuleShape2D_s08of")
 disabled = true
 

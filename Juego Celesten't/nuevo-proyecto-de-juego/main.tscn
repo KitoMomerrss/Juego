@@ -300,6 +300,7 @@ metadata/_custom_type_script = "uid://byvx4cft0ao7w"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox2"]
 position = Vector2(161.5, 691)
 shape = SubResource("RectangleShape2D_7mycd")
+disabled = true
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 3
@@ -309,3 +310,4 @@ metadata/_custom_type_script = "uid://byvx4cft0ao7w"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(161.5, 691)
 shape = SubResource("RectangleShape2D_7mycd")
+disabled = true

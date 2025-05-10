@@ -469,7 +469,7 @@ transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition
 graph_offset = Vector2(-117, -284)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s08of"]
-radius = 24.0
+radius = 19.0
 height = 102.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3aesf"]
@@ -513,7 +513,7 @@ script = ExtResource("7_mt4e1")
 metadata/_custom_type_script = "uid://byvx4cft0ao7w"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(0, 51)
+position = Vector2(1, 51)
 shape = SubResource("CapsuleShape2D_s08of")
 disabled = true
 
