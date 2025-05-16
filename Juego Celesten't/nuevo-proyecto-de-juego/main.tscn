@@ -1,5 +1,6 @@
-[gd_scene load_steps=11 format=4 uid="uid://24j3fk22gmf3"]
+[gd_scene load_steps=12 format=4 uid="uid://24j3fk22gmf3"]
 
+[ext_resource type="Script" uid="uid://6yfwnrv6r08v" path="res://main.gd" id="1_7mycd"]
 [ext_resource type="PackedScene" uid="uid://cq6quix4khac1" path="res://player_1.tscn" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://bv7fra5evnf70" path="res://icon.svg" id="2_0xm2m"]
 [ext_resource type="Texture2D" uid="uid://byrt35h8xs7pu" path="res://Sprite/Tiles/Dungeon Tile Set/Dungeon Tile Set.png" id="3_h2yge"]
@@ -243,6 +244,7 @@ sources/0 = SubResource("TileSetAtlasSource_lquwl")
 size = Vector2(195, 20)
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_7mycd")
 
 [node name="RigidBody2D" type="StaticBody2D" parent="."]
 position = Vector2(0, 832)

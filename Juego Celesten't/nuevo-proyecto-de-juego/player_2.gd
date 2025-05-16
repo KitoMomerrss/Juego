@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+@export var device_id: int = 0
+
 #Movimiento basico
 @export var speed = 200
 @export var jump_force = -400
@@ -15,20 +17,11 @@ extends CharacterBody2D
 @onready var pivot: Node2D = $Pivot
 
 
+@onready var hurtbox: Hurtbox = $Hurtbox
 
 
 var knockback_time = 0
 var is_knockback = false
-
-@onready var hurtbox: Hurtbox = $Hurtbox
-
-
-
-
-
-
-
-
 
 
 
@@ -51,9 +44,18 @@ func _ready() -> void:
 	
 func _physics_process(delta: float) -> void:
 	
-	#Daño
-	var move_input = Input.get_axis("2.move.L", "2.move.R")
 	
+	#probar mando
+	var raw_x = Input.get_joy_axis(device_id, 0)
+	var raw_y = Input.get_joy_axis(device_id, 1)
+	
+	var x = digital_axis(raw_x)
+	var y = digital_axis(raw_y)
+
+	var mando_direction = Vector2(x, y).normalized()
+	
+	#original
+	var move_input = Input.get_axis("2.move.L", "2.move.R")
 	var input_direction = Vector2.ZERO
 
 	# Detectar inputs de movimiento
@@ -71,6 +73,7 @@ func _physics_process(delta: float) -> void:
 		dash_timer -= delta
 		if dash_timer <= 0:
 			is_dashing = false
+			velocity.y = 0
 	
 	#estar en knocback
 	#if knocked_timeout > 0:
@@ -88,23 +91,24 @@ func _physics_process(delta: float) -> void:
 		# Movimiento normal
 		#var move_input = Input.get_axis("1.Move.L", "1.Move.R")
 		#velocity.x = move_toward(velocity.x, speed * move_input, acceleration * delta)
+		#velocity.x = (Input.get_action_strength("2.move.R") - Input.get_action_strength("2.move.L"))* speed
 		
-		velocity.x = (Input.get_action_strength("2.move.R") - Input.get_action_strength("2.move.L"))* speed
-		#velocity.x = speed
+		#moverse con mando
+		velocity.x = (x) * speed
 		# Aplicar gravedad
 		velocity.y += gravity*delta
 
 		# Saltar
-		if is_on_floor() and Input.is_action_just_pressed("2.jump"):
+		if is_on_floor() and (Input.is_action_just_pressed("2.jump") or Input.is_joy_button_pressed(device_id, 1)):
 			velocity.y = jump_force
 
 		# Iniciar dash
-		if can_dash and Input.is_action_just_pressed("2.dash"):
-			if input_direction != Vector2.ZERO:
-				start_dash(input_direction)
+		if can_dash and (Input.is_action_just_pressed("2.dash") or Input.is_joy_button_pressed(device_id, 0)):
+			if mando_direction != Vector2.ZERO:
+				start_dash(mando_direction)
 			else:
 				# Si no hay dirección presionada, dasha hacia donde está mirando el personaje (ejemplo: hacia la derecha)
-				start_dash(Vector2(1, 0))
+				start_dash(Vector2(pivot.scale.x, 0))
 
 	# Resetear dash al tocar el suelo
 	if is_on_floor() and not is_dashing:
@@ -113,8 +117,8 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 	#animaciones
-	if move_input != 0:
-		pivot.scale.x = sign(move_input)
+	if x != 0:
+		pivot.scale.x = sign(x)
 	if is_on_floor():
 		if abs(velocity.x) > 30:
 			playback.travel("RUN")
@@ -145,14 +149,22 @@ func apply_knockback(direction: Vector2, force: float):
 	Debug.log("por que no vuela")
 
 
-
-
 func start_dash(direction):
 	is_dashing = true
 	can_dash = false
 	dash_timer = dash_time
 	dash_direction = direction.normalized()
 	velocity = dash_direction * dash_speed
+
+
+#funcion anti drift XD
+func digital_axis(value: float, threshold := 0.5) -> int:
+	if value > threshold:
+		return 1
+	elif value < -threshold:
+		return -1
+	return 0
+
 
 
 func get_hit(knockback: int) -> void:

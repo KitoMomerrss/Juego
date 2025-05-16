@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+@export var device_id: int = 0
+
 #Movimiento basico
 @export var speed = 200
 @export var jump_force = -400
@@ -15,10 +17,13 @@ extends CharacterBody2D
 @onready var pivot: Node2D = $Pivot
 @onready var sprite_flipper: Node2D = $Pivot/SpriteFlipper
 
-
-
 @onready var hurtbox: Hurtbox = $Hurtbox
 
+var dash_pressed_last_frame = false
+var jump_pressed = false
+
+var knockback_time = 0
+var is_knockback = false
 
 
 #Dash
@@ -37,9 +42,18 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	
-	#Daño
-	var move_input = Input.get_axis("1.Move.L", "1.Move.R")
 	
+	#probar mando
+	var raw_x = Input.get_joy_axis(device_id, 0)
+	var raw_y = Input.get_joy_axis(device_id, 1)
+	
+	var x = digital_axis(raw_x)
+	var y = digital_axis(raw_y)
+
+	var mando_direction = Vector2(x, y).normalized()
+	
+	#original
+	var move_input = Input.get_axis("1.Move.L", "1.Move.R")
 	var input_direction = Vector2.ZERO
 
 	# Detectar inputs de movimiento
@@ -55,6 +69,8 @@ func _physics_process(delta: float) -> void:
 		# Durante el dash, nos movemos solo en la dirección del dash
 		velocity = dash_direction * dash_speed 
 		dash_timer -= delta
+		#impide mantener precionado
+		
 		if dash_timer <= 0:
 			is_dashing = false
 			emit_signal("dash_end")
@@ -62,27 +78,53 @@ func _physics_process(delta: float) -> void:
 			# Resetea la rotación
 			pivot.rotation = 0 
 			sprite_flipper.scale.y = 1
+	
+	if is_knockback:
+		knockback_time -= delta
+		velocity = velocity.move_toward(Vector2.ZERO, delta * 500)
+		if knockback_time <= 0.0:
+			is_knockback = false
+			
 	else:
 		# Movimiento normal
 		#var move_input = Input.get_axis("1.Move.L", "1.Move.R")
 		#velocity.x = move_toward(velocity.x, speed * move_input, acceleration * delta)
 		
-		velocity.x = (Input.get_action_strength("1.Move.R") - Input.get_action_strength("1.Move.L")) * speed 
-		#velocity.x = speed
+		#velocity.x = (Input.get_action_strength("1.Move.R") - Input.get_action_strength("1.Move.L")) * speed 
+		
+		#moverse con mando
+		velocity.x = x * speed
+		
 		# Aplicar gravedad
 		velocity.y += gravity*delta
-
+		
 		# Saltar
-		if is_on_floor() and Input.is_action_just_pressed("1.Jump"):
+		
+		#saltar mando solo
+		#if is_on_floor() and Input.is_joy_button_pressed(device_id, 1):
+		#	velocity.y = jump_force
+			
+		#if is_on_floor() and (Input.is_action_just_pressed("1.Jump") or Input.is_joy_button_pressed(device_id, 1)):
+			#velocity.y = jump_force
+		var jump_input = Input.is_joy_button_pressed(device_id, 1)
+		if jump_input and not jump_pressed and is_on_floor():
 			velocity.y = jump_force
-
+			print("¡Jugador saltó!")
+		jump_pressed = jump_input
+		
+		
 		# Iniciar dash
-		if can_dash and Input.is_action_just_pressed("1.Dash"):
-			if input_direction != Vector2.ZERO:
-				start_dash(input_direction)
+		
+		
+		#if can_dash and (Input.is_action_just_pressed("1.Dash") or Input.is_joy_button_pressed(device_id, 0)):
+		var dash_now = Input.is_joy_button_pressed(device_id, 0)
+		if can_dash and dash_now and not dash_pressed_last_frame:
+			if mando_direction != Vector2.ZERO:
+				start_dash(mando_direction)
 			else:
 				# Si no hay dirección presionada, dasha hacia donde está mirando el personaje (ejemplo: hacia la derecha)
 				start_dash(Vector2(sprite_flipper.scale.x, 0))
+		dash_pressed_last_frame = dash_now
 
 	# Resetear dash al tocar el suelo
 	if is_on_floor() and not is_dashing:
@@ -94,8 +136,10 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 	# Animaciones
-	if move_input != 0:
-		sprite_flipper.scale.x = sign(move_input)
+	if x != 0:
+		print(x)
+		#sprite_flipper.scale.x = sign(move_input)
+		sprite_flipper.scale.x = sign(x)
 	if is_on_floor():
 		if abs(velocity.x) > 30:
 			playback.travel("RUN")
@@ -110,6 +154,14 @@ func _physics_process(delta: float) -> void:
 	if is_dashing == true:
 		playback.travel("dash")
 		
+
+
+func apply_knockback(direction: Vector2, force: float):
+	var knockback_velocity = direction.normalized() * force
+	velocity = knockback_velocity  # si usas physics-based movement
+	is_knockback = true
+	knockback_time = 0.5 # segundos de knockback
+	Debug.log("por que no vuela")
 
 
 func start_dash(direction):
@@ -139,6 +191,15 @@ if 1.57079637050629 < pivot.rotation and pivot.rotation < -1.57079637050629:
 		sprite_flipper.scale.y = -1
 		print("asd")
 '''
+
+#funcion anti drift XD
+func digital_axis(value: float, threshold := 0.5) -> int:
+	if value > threshold:
+		return 1
+	elif value < -threshold:
+		return -1
+	return 0
+
 
 
 func get_hit(knockback: int) -> void:
