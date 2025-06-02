@@ -18,6 +18,12 @@ extends CharacterBody2D
 @onready var sprite_flipper: Node2D = $Pivot/SpriteFlipper
 
 @onready var hurtbox: Hurtbox = $Hurtbox
+@onready var health_bar: ProgressBar = $CanvasLayer/MarginContainer/HealthBar
+
+@onready var health_component: HealthComponent = $HealthComponent
+
+var dead = false
+var respawn_position: Vector2
 
 var dash_pressed_last_frame = false
 var jump_pressed = false
@@ -36,9 +42,34 @@ var can_dash = true
 
 
 func _ready() -> void:
-	pass
+	if respawn_position == Vector2.ZERO:
+		respawn_position = global_position
+	health_component.health_changed.connect(_on_health_changed)
+	health_bar.value = health_component.health
+	health_component.died.connect(death)
+	 
+func _on_health_changed(value: float) -> void:
 	
-
+	health_bar.value = value
+	
+func death() -> void:
+	dead = true
+	is_knockback = false
+	#if stocks = 0:
+	#	get.tree...
+	#	queue.free()
+	
+	respawn()
+	
+	
+func respawn() -> void:
+	
+	velocity *= 0
+	dead = false
+	health_component.health = health_component.max_health
+	global_position = respawn_position
+	
+	
 
 func _physics_process(delta: float) -> void:
 	
@@ -62,9 +93,8 @@ func _physics_process(delta: float) -> void:
 	input_direction.y = Input.get_action_strength("1.Move.D") - Input.get_action_strength("1.Move.U")
 	input_direction = input_direction.normalized()
 	
-	
-	
-		
+	if dead:
+		velocity = velocity * 0
 	if is_dashing:
 		# Durante el dash, nos movemos solo en la dirección del dash
 		velocity = dash_direction * dash_speed 
@@ -172,7 +202,6 @@ func start_dash(direction):
 	dash_direction = direction
 	velocity = dash_direction * dash_speed
 	
-		
 	can_dash = true # Cambiar eventualmente
 
 
@@ -183,3 +212,4 @@ func digital_axis(value: float, threshold := 0.5) -> int:
 	elif value < -threshold:
 		return value
 	return 0
+	

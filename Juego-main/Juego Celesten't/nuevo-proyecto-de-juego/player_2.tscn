@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://dj3arf08sg3pk"]
+[gd_scene load_steps=46 format=3 uid="uid://dj3arf08sg3pk"]
 
 [ext_resource type="Script" uid="uid://b6jvdbl14l6c3" path="res://Mando2.gd" id="1_6iqoo"]
 [ext_resource type="Texture2D" uid="uid://dn5365af6g7ow" path="res://Sprite/FREE_Samurai 2D Pixel Art v1.2/FREE_Samurai 2D Pixel Art v1.2/Sprites/IDLE.png" id="2_jaoer"]
@@ -7,7 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://dj6524odbakta" path="res://Sprite/Premium/DASH.png" id="5_6iqoo"]
 [ext_resource type="Texture2D" uid="uid://ca3oaajdf73yf" path="res://Sprite/Premium/JUMP.png" id="6_ehhk3"]
 [ext_resource type="Script" uid="uid://byvx4cft0ao7w" path="res://hitbox.gd" id="7_mt4e1"]
-[ext_resource type="Script" uid="uid://c8v8vjfhnbg10" path="res://hurtbox.gd" id="8_7d0q2"]
+[ext_resource type="Script" uid="uid://gj64baqfohid" path="res://hurtbox_2.gd" id="8_jaoer"]
+[ext_resource type="Script" uid="uid://cdmuybmwt8tu4" path="res://health_component2.gd" id="9_jaoer"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i66ns"]
 radius = 16.0
@@ -548,6 +549,12 @@ height = 102.0
 radius = 19.0
 height = 98.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8lhrm"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_up5o4"]
+bg_color = Color(0.24742, 0.771386, 3.85046e-07, 1)
+
 [node name="Player 2" type="CharacterBody2D"]
 collision_layer = 2
 script = ExtResource("1_6iqoo")
@@ -579,6 +586,7 @@ anim_player = NodePath("../AnimationPlayer")
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("7_mt4e1")
+damage = 30
 metadata/_custom_type_script = "uid://byvx4cft0ao7w"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
@@ -586,10 +594,32 @@ position = Vector2(1, 51)
 shape = SubResource("CapsuleShape2D_s08of")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="."]
-script = ExtResource("8_7d0q2")
-metadata/_custom_type_script = "uid://c8v8vjfhnbg10"
+[node name="Hurtbox2" type="Area2D" parent="."]
+script = ExtResource("8_jaoer")
+metadata/_custom_type_script = "uid://gj64baqfohid"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox2"]
 position = Vector2(1, 51)
 shape = SubResource("CapsuleShape2D_3aesf")
+
+[node name="HealthComponent2" type="Node" parent="."]
+script = ExtResource("9_jaoer")
+metadata/_custom_type_script = "uid://cdmuybmwt8tu4"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+offset_left = 864.0
+offset_top = 11.0
+offset_right = 1134.0
+offset_bottom = 68.0
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="HealthBar" type="ProgressBar" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_8lhrm")
+theme_override_styles/fill = SubResource("StyleBoxFlat_up5o4")

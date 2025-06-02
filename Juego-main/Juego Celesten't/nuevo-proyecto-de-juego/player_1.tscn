@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://cq6quix4khac1"]
+[gd_scene load_steps=47 format=3 uid="uid://cq6quix4khac1"]
 
 [ext_resource type="Script" uid="uid://d0imyxekeeaq" path="res://Mando1.gd" id="1_txlgs"]
 [ext_resource type="Texture2D" uid="uid://dn5365af6g7ow" path="res://Sprite/FREE_Samurai 2D Pixel Art v1.2/FREE_Samurai 2D Pixel Art v1.2/Sprites/IDLE.png" id="2_buxg0"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dj6524odbakta" path="res://Sprite/Premium/DASH.png" id="6_dkxmd"]
 [ext_resource type="Script" uid="uid://byvx4cft0ao7w" path="res://hitbox.gd" id="7_ugj0w"]
 [ext_resource type="Script" uid="uid://c8v8vjfhnbg10" path="res://hurtbox.gd" id="8_n0cnt"]
+[ext_resource type="Script" uid="uid://b525b7xje3hvk" path="res://health_componnent.gd" id="9_dkxmd"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gf2bl"]
 
@@ -502,6 +503,12 @@ height = 102.0
 radius = 19.0
 height = 98.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dkxmd"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gf2bl"]
+bg_color = Color(0.24742, 0.771386, 3.85046e-07, 1)
+
 [node name="Player 1" type="CharacterBody2D"]
 collision_layer = 2
 script = ExtResource("1_txlgs")
@@ -548,3 +555,23 @@ metadata/_custom_type_script = "uid://c8v8vjfhnbg10"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(1, 51)
 shape = SubResource("CapsuleShape2D_3aesf")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("9_dkxmd")
+metadata/_custom_type_script = "uid://b525b7xje3hvk"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+offset_right = 278.0
+offset_bottom = 59.0
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="HealthBar" type="ProgressBar" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_dkxmd")
+theme_override_styles/fill = SubResource("StyleBoxFlat_gf2bl")
