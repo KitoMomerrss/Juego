@@ -519,13 +519,12 @@ script = ExtResource("1_txlgs")
 
 [node name="Sprite2D" type="Sprite2D" parent="Pivot/SpriteFlipper"]
 material = SubResource("ShaderMaterial_gf2bl")
-position = Vector2(-6, 0)
 scale = Vector2(3, 3)
 texture = ExtResource("2_buxg0")
+offset = Vector2(0, -16.07)
 hframes = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, 51)
 shape = SubResource("CapsuleShape2D_i66ns")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -542,7 +541,6 @@ script = ExtResource("7_ugj0w")
 metadata/_custom_type_script = "uid://byvx4cft0ao7w"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(1, 51)
 shape = SubResource("CapsuleShape2D_s08of")
 disabled = true
 
@@ -553,7 +551,6 @@ script = ExtResource("8_n0cnt")
 metadata/_custom_type_script = "uid://c8v8vjfhnbg10"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-position = Vector2(1, 51)
 shape = SubResource("CapsuleShape2D_3aesf")
 
 [node name="HealthComponent" type="Node" parent="."]

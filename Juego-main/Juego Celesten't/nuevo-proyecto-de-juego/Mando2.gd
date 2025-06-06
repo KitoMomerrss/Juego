@@ -79,8 +79,6 @@ func _physics_process(delta: float) -> void:
 	var x = digital_axis(raw_x)
 	var y = digital_axis(raw_y)
 	
-	#print(global_position.direction_to(get_global_mouse_position()))
-
 
 	var mando_direction = Vector2(x, y)#.normalized()
 	

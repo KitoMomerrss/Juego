@@ -81,6 +81,7 @@ func _physics_process(delta: float) -> void:
 	var x = digital_axis(raw_x)
 	var y = digital_axis(raw_y)
 
+
 	var mando_direction = Vector2(x, y)
 	
 	#original
@@ -92,6 +93,7 @@ func _physics_process(delta: float) -> void:
 	input_direction.x = Input.get_axis("1.Move.L", "1.Move.R")
 	input_direction.y = Input.get_action_strength("1.Move.D") - Input.get_action_strength("1.Move.U")
 	input_direction = input_direction.normalized()
+	
 	
 	if dead:
 		velocity = velocity * 0
@@ -105,8 +107,8 @@ func _physics_process(delta: float) -> void:
 			is_dashing = false
 			velocity.y = 0
 			# Resetea la rotación
-			pivot.rotation = 0 
-			sprite_flipper.scale.y = 1
+			pivot.scale.x = 1 
+			pivot.rotation = 0
 	
 	if is_knockback:
 		knockback_time -= delta
@@ -153,7 +155,7 @@ func _physics_process(delta: float) -> void:
 				start_dash(mando_direction)
 			else:
 				# Si no hay dirección presionada, dasha hacia donde está mirando el personaje (ejemplo: hacia la derecha)
-				start_dash(Vector2(sprite_flipper.scale.x, 0))
+				start_dash(Vector2(pivot.scale.x, 0))
 		dash_pressed_last_frame = dash_now
 
 	# Resetear dash al tocar el suelo
@@ -167,9 +169,8 @@ func _physics_process(delta: float) -> void:
 	
 	# Animaciones
 	if x != 0:
-		print(x)
 		#sprite_flipper.scale.x = sign(move_input)
-		sprite_flipper.scale.x = sign(x)
+		pivot.scale.x = sign(x) # huh
 	if is_on_floor():
 		if abs(velocity.x) > 30:
 			playback.travel("RUN")
@@ -194,14 +195,25 @@ func apply_knockback(direction: Vector2, force: float):
 	Debug.log("por que no vuela")
 
 
-func start_dash(direction):
+func start_dash(direction: Vector2):
 	is_dashing = true
 	can_dash = false
 	dash_timer = dash_time
-	dash_direction = direction
-	velocity = dash_direction * dash_speed
+	# Inputs stick análogo 360 deg
+	var raw_x = Input.get_joy_axis(device_id, 0)
+	var raw_y = Input.get_joy_axis(device_id, 1)
 	
-	can_dash = true # Cambiar eventualmente
+	dash_direction = Vector2(raw_x, raw_y) # Dirección dash
+	velocity = dash_direction * dash_speed # Dash
+
+	# ROTACIÓN VISUAL limpia
+	pivot.rotation = dash_direction.angle()
+
+	# Fix manual del lado izquierdo que gira y flipea raro :(
+	if pivot.rotation <= -2 or 2 <= pivot.rotation:
+		pivot.rotation = dash_direction.angle() - PI
+
+	can_dash = true # CAMBIAR A FALSE EVENTUALMENTE
 
 
 #funcion anti drift XD
