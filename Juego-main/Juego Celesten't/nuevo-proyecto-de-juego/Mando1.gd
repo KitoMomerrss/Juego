@@ -73,7 +73,6 @@ func _physics_process(delta: float) -> void:
 		
 		if dash_timer <= 0:
 			is_dashing = false
-			emit_signal("dash_end")
 			velocity.y = 0
 			# Resetea la rotación
 			pivot.rotation = 0 
