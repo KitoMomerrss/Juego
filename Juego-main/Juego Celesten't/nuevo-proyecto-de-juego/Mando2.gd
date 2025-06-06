@@ -96,8 +96,9 @@ func _physics_process(delta: float) -> void:
 	
 	var x = digital_axis(raw_x)
 	var y = digital_axis(raw_y)
+	
 
-	var mando_direction = Vector2(x, y).normalized()
+	var mando_direction = Vector2(x, y)#.normalized()
 	
 	#original
 	var move_input = Input.get_axis("2.move.L", "2.move.R")
@@ -118,13 +119,12 @@ func _physics_process(delta: float) -> void:
 		dash_timer -= delta
 		#impide mantener precionado
 		
-		if dash_timer <= 0:
+		if dash_timer <= 0: # Luego de terminar el dash
 			is_dashing = false
-			emit_signal("dash_end")
 			velocity.y = 0
 			# Resetea la rotación
-			pivot.rotation = 0 
-			pivot.scale.y = 1
+			pivot.scale.x = 1
+			pivot.rotation = 0
 	
 	if is_knockback:
 		knockback_time -= delta
@@ -159,7 +159,6 @@ func _physics_process(delta: float) -> void:
 		var jump_input = Input.is_joy_button_pressed(device_id, 1)
 		if jump_input and not jump_pressed and is_on_floor():
 			velocity.y = jump_force
-			print("¡Jugador saltó!")
 		jump_pressed = jump_input
 		
 		
@@ -187,7 +186,6 @@ func _physics_process(delta: float) -> void:
 	
 	# Animaciones
 	if x != 0:
-		print(x)
 		#sprite_flipper.scale.x = sign(move_input)
 		pivot.scale.x = sign(x)
 	if is_on_floor():
@@ -211,19 +209,28 @@ func apply_knockback(direction: Vector2, force: float):
 	velocity = knockback_velocity  # si usas physics-based movement
 	is_knockback = true
 	knockback_time = 0.5 # segundos de knockback
-	
+	Debug.log("por que no vuela")
 
 
-func start_dash(direction):
+func start_dash(direction: Vector2):
 	is_dashing = true
 	can_dash = false
 	dash_timer = dash_time
-	dash_direction = direction.normalized()
-	velocity = dash_direction * dash_speed
+	# Inputs stick análogo 360 deg
+	var raw_x = Input.get_joy_axis(device_id, 0)
+	var raw_y = Input.get_joy_axis(device_id, 1)
 	
-		
-	can_dash = true # Cambiar eventualmente
+	dash_direction = Vector2(raw_x, raw_y) # Dirección dash
+	velocity = dash_direction * dash_speed # Dash
 
+	# ROTACIÓN VISUAL limpia
+	pivot.rotation = dash_direction.angle()
+
+	# Fix manual del lado izquierdo que gira y flipea raro :(
+	if pivot.rotation <= -2 or 2 <= pivot.rotation:
+		pivot.rotation = dash_direction.angle() - PI
+
+	can_dash = true # CAMBIAR A FALSE EVENTUALMENTE
 
 #funcion anti drift XD
 func digital_axis(value: float, threshold := 0.5) -> int:
