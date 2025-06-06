@@ -290,7 +290,7 @@ position = Vector2(636, 432)
 scale = Vector2(0.75, 0.75)
 
 [node name="Player 2" parent="." instance=ExtResource("4_1bvp3")]
-position = Vector2(946, 434)
+position = Vector2(948, 470)
 scale = Vector2(0.75, 0.75)
 
 [node name="Hitbox2" type="Area2D" parent="."]

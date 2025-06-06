@@ -1,8 +1,8 @@
-class_name Hurtbox
+class_name Hurtbox2
 extends Area2D
 
 
-@onready var health_component: HealthComponent = $"../HealthComponent"
+@onready var health_component_2: HealthComponent2 = $"../HealthComponent2"
 
 
 
@@ -16,8 +16,8 @@ func _ready():
 
 func _on_area_entered(area: Area2D) -> void:
 	var hitbox = area as Hitbox
-	if hitbox and health_component:
-		health_component.take_damage(hitbox.damage)
+	if hitbox and health_component_2:
+		health_component_2.take_damage(hitbox.damage)
 		hitbox.damage_dealt.emit()
 		
 #func _on_hitbox_hit(damage : int, hitbox : Area2D):
@@ -26,14 +26,4 @@ func _on_area_entered(area: Area2D) -> void:
 	
 	#sends the knockback signal to the player,
 	#hitbox param is to define the direction of the knockback
-#	apply_knockback.emit(hitbox)
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
+#	apply_knockback.emit(hitbox)extends Area2D

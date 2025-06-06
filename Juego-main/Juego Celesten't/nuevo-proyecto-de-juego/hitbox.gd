@@ -5,6 +5,8 @@ extends Area2D
  
 @export var knockback = 600
 
+signal damage_dealt
+
 
 func _ready() -> void:
 	area_entered.connect(_on_hitbox_area_entered)
@@ -21,7 +23,7 @@ func _ready() -> void:
 #	if body.has_method("apply_knockback"):
 #		body.apply_knockback(owner.dash_direction, knockback)
 func _on_hitbox_area_entered(area):
-	var hurtbox = area as Hurtbox
+	var hurtbox = area as Hurtbox or Hurtbox2
 	if hurtbox:
 		var enemy = area.get_parent() # Asumimos que Hurtbox es hijo del enemigo
 		var player = get_parent()
