@@ -19,11 +19,17 @@ extends CharacterBody2D
 
 @onready var hurtbox: Hurtbox = $Hurtbox
 @onready var health_bar: ProgressBar = $CanvasLayer/MarginContainer/HealthBar
+@onready var label: Label = $CanvasLayer/MarginContainer/MarginContainer/Label
+
+
 
 @onready var health_component: HealthComponent = $HealthComponent
 
+
 var dead = false
 var respawn_position: Vector2
+var stocks = 3
+var loser = false
 
 var dash_pressed_last_frame = false
 var jump_pressed = false
@@ -47,28 +53,42 @@ func _ready() -> void:
 	health_component.health_changed.connect(_on_health_changed)
 	health_bar.value = health_component.health
 	health_component.died.connect(death)
+	label.text = " %d " %stocks
 	 
 func _on_health_changed(value: float) -> void:
 	
 	health_bar.value = value
 	
 func death() -> void:
-	dead = true
-	is_knockback = false
-	#if stocks = 0:
-	#	get.tree...
-	#	queue.free()
+	if stocks > 0:
+		stocks -= 1
+		dead = true
+		is_knockback = false
+		
+		label.text = " %d " %stocks
+		#if stocks = 0:
+		#	get.tree...
+		#	queue.free()
 	
-	respawn()
-	
+		respawn()
+	if stocks == 0:
+		lost()
+		queue_free()
+		
+		
 	
 func respawn() -> void:
 	
+	is_knockback = false
 	velocity *= 0
 	dead = false
 	health_component.health = health_component.max_health
 	global_position = respawn_position
-	
+
+func lost() -> void:
+	print("loserxd")
+	loser = true
+	get_parent().game_progress()
 	
 
 func _physics_process(delta: float) -> void:
@@ -121,7 +141,7 @@ func _physics_process(delta: float) -> void:
 		#velocity.x = move_toward(velocity.x, speed * move_input, acceleration * delta)
 		
 		#velocity.x = (Input.get_action_strength("1.Move.R") - Input.get_action_strength("1.Move.L")) * speed 
-		if not is_dashing:
+		if not is_dashing and not is_knockback:
 		#moverse con mando
 			velocity.x = x  * speed 
 			
@@ -192,7 +212,7 @@ func apply_knockback(direction: Vector2, force: float):
 	velocity = knockback_velocity  # si usas physics-based movement
 	is_knockback = true
 	knockback_time = 0.5 # segundos de knockback
-	Debug.log("por que no vuela")
+	
 
 
 func start_dash(direction):

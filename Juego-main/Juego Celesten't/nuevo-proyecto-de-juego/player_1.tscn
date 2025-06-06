@@ -539,6 +539,7 @@ anim_player = NodePath("../AnimationPlayer")
 
 [node name="Hitbox" type="Area2D" parent="."]
 script = ExtResource("7_ugj0w")
+damage = 30
 metadata/_custom_type_script = "uid://byvx4cft0ao7w"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
@@ -575,3 +576,13 @@ layout_mode = 2
 size_flags_vertical = 1
 theme_override_styles/background = SubResource("StyleBoxFlat_dkxmd")
 theme_override_styles/fill = SubResource("StyleBoxFlat_gf2bl")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/margin_left = -15
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "3"

@@ -20,11 +20,14 @@ extends CharacterBody2D
 @onready var hurtbox_2: Hurtbox2 = $Hurtbox2
 
 @onready var health_component_2: HealthComponent2 = $HealthComponent2
-
 @onready var health_bar: ProgressBar = $CanvasLayer/MarginContainer/HealthBar
+@onready var label: Label = $CanvasLayer/MarginContainer/MarginContainer/Label
+
 
 var dead = false
 var respawn_position: Vector2
+var stocks = 3
+var loser = false
 
 var dash_pressed_last_frame = false
 var jump_pressed = false
@@ -48,27 +51,42 @@ func _ready() -> void:
 	health_component_2.health_changed.connect(_on_health_changed)
 	health_bar.value = health_component_2.health
 	health_component_2.died.connect(death)
+	label.text = "%d" %stocks
 	
 func _on_health_changed(value: float) -> void:
 	
 	health_bar.value = value
 	
 func death() -> void:
-	dead = true
-	is_knockback = false
-	#if stocks = 0:
-	#	get.tree...
-	#	queue.free()
-	respawn()
+	if stocks > 0:
+		stocks -= 1
+		dead = true
+		is_knockback = false
+		
+		label.text = " %d " %stocks
+		#if stocks = 0:
+		#	get.tree...
+		#	queue.free()
+		respawn()
+		
+	if stocks == 0:
+		lost()
+		queue_free()
 	
 func respawn() -> void:
 	
+	is_knockback = false
 	velocity *= 0
 	dead = false
 	health_component_2.health = health_component_2.max_health
 	global_position = respawn_position
 	
-
+func lost() -> void:
+	print("loserxd")
+	loser = true
+	get_parent().game_progress()
+	
+	
 func _physics_process(delta: float) -> void:
 	
 	
@@ -193,7 +211,7 @@ func apply_knockback(direction: Vector2, force: float):
 	velocity = knockback_velocity  # si usas physics-based movement
 	is_knockback = true
 	knockback_time = 0.5 # segundos de knockback
-	Debug.log("por que no vuela")
+	
 
 
 func start_dash(direction):

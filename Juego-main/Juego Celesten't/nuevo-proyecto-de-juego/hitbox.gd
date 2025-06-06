@@ -29,4 +29,4 @@ func _on_hitbox_area_entered(area):
 		var player = get_parent()
 		var direction = player.dash_direction
 		enemy.apply_knockback(direction, knockback)
-		Debug.log("ay")
+		
