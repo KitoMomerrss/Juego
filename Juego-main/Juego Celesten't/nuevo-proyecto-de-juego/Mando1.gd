@@ -10,12 +10,16 @@ extends CharacterBody2D
 
 @onready var collision_shape_2d: CollisionShape2D = $Hitbox/CollisionShape2D
 
+@onready var player_collision_shape_2d: CollisionShape2D = $CollisionShape2D
+
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var playback = animation_tree.get("parameters/playback")
 
 @onready var pivot: Node2D = $Pivot
 @onready var sprite_flipper: Node2D = $Pivot/SpriteFlipper
+@onready var walljumpdetection: RayCast2D = $Pivot/SpriteFlipper/walljumpdetection
+
 
 @onready var hurtbox: Hurtbox = $Hurtbox
 @onready var health_bar: ProgressBar = $CanvasLayer/MarginContainer/HealthBar
@@ -37,6 +41,9 @@ var jump_pressed = false
 var knockback_time = 0
 var is_knockback = false
 
+var state = State.MOVEMENT:
+	set = set_state 
+
 
 #Dash
 @export var dash_speed = 1300
@@ -46,8 +53,13 @@ var dash_direction = Vector2.ZERO
 var dash_timer = 0.0
 var can_dash = true
 
+enum State {
+	MOVEMENT,
+	WALL_JUMP
+}
 
 func _ready() -> void:
+	
 	if respawn_position == Vector2.ZERO:
 		respawn_position = global_position
 	health_component.health_changed.connect(_on_health_changed)
@@ -92,7 +104,15 @@ func lost() -> void:
 	
 
 func _physics_process(delta: float) -> void:
-	
+	match state:
+		State.MOVEMENT:
+			_movement(delta)
+		State.WALL_JUMP:
+			_wall_jump(delta)
+
+
+
+func _movement(delta: float) -> void:
 	
 	#probar mando
 	var raw_x = Input.get_joy_axis(device_id, 0)
@@ -137,27 +157,21 @@ func _physics_process(delta: float) -> void:
 			is_knockback = false
 			
 	else:
-		# Movimiento normal
-		#var move_input = Input.get_axis("1.Move.L", "1.Move.R")
-		#velocity.x = move_toward(velocity.x, speed * move_input, acceleration * delta)
 		
-		#velocity.x = (Input.get_action_strength("1.Move.R") - Input.get_action_strength("1.Move.L")) * speed 
-		if not is_dashing and not is_knockback:
-		#moverse con mando
-			velocity.x = x  * speed 
+		if not is_on_floor() and walljumpdetection.is_colliding():
+			state = State.WALL_JUMP
 			
-		
+		 
+		if not is_dashing and not is_knockback:
+			
+			
+		#moverse con mando
+			velocity.x = move_toward(velocity.x, speed * x, delta * acceleration)
+			#velocity.x = x  * speed
+			
 		# Aplicar gravedad
 			velocity.y += gravity*delta
 		
-		# Saltar
-		
-		#saltar mando solo
-		#if is_on_floor() and Input.is_joy_button_pressed(device_id, 1):
-		#	velocity.y = jump_force
-			
-		#if is_on_floor() and Input.is_action_just_pressed("1.Jump"):
-		#	velocity.y = jump_force
 		var jump_input = Input.is_joy_button_pressed(device_id, 1)
 		if jump_input and not jump_pressed and is_on_floor():
 			velocity.y = jump_force
@@ -206,6 +220,25 @@ func _physics_process(delta: float) -> void:
 		playback.travel("dash")
 		
 
+func _wall_jump(delta: float) -> void:
+	#var wall_timer = 0.4
+	if not walljumpdetection.is_colliding():
+		state = State.MOVEMENT
+	playback.travel("wall slide")
+	velocity.y += 0.1 * gravity * delta
+	move_and_slide()
+	
+	if Input.is_joy_button_pressed(device_id, 1):
+		pivot.scale.x *= -1
+		playback.travel("wall jump")
+		velocity.y = jump_force
+		velocity.x = - sign(pivot.scale.x) *  jump_force
+		#wall_timer -= delta
+		#if wall_timer <= 0:
+		state = State.MOVEMENT
+		
+	if is_on_floor():
+		state = State.MOVEMENT
 
 func apply_knockback(direction: Vector2, force: float):
 	var knockback_velocity = direction.normalized() * force
@@ -244,3 +277,14 @@ func digital_axis(value: float, threshold := 0.5) -> int:
 		return value
 	return 0
 	
+func set_state(value: State) -> void:
+	var old_state = state
+	var new_state = value
+	
+	
+	state = new_state
+	
+	if new_state == State.WALL_JUMP:
+		var collision_point = walljumpdetection.get_collision_point()
+		global_position.x = collision_point.x + player_collision_shape_2d.shape.radius * sign(sprite_flipper.scale.x)
+		velocity = Vector2.ZERO

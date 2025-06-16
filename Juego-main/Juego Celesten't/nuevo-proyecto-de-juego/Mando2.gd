@@ -209,7 +209,7 @@ func apply_knockback(direction: Vector2, force: float):
 	velocity = knockback_velocity  # si usas physics-based movement
 	is_knockback = true
 	knockback_time = 0.5 # segundos de knockback
-	Debug.log("por que no vuela")
+	
 
 
 func start_dash(direction: Vector2):

@@ -27,6 +27,10 @@ func _on_hitbox_area_entered(area):
 	if hurtbox:
 		var enemy = area.get_parent() # Asumimos que Hurtbox es hijo del enemigo
 		var player = get_parent()
-		var direction = player.dash_direction
-		enemy.apply_knockback(direction, knockback)
+		if player as CharacterBody2D:
+			var direction = player.dash_direction
+			enemy.apply_knockback(direction, knockback)
+		else:
+			enemy.apply_knockback(Vector2(0,1), knockback)
+		
 		

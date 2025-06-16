@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bbm43fqn64whd" path="res://main.gd" id="1_7mycd"]
 [ext_resource type="PackedScene" uid="uid://cq6quix4khac1" path="res://player_1.tscn" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://bv7fra5evnf70" path="res://icon.svg" id="2_0xm2m"]
-[ext_resource type="Texture2D" uid="uid://byrt35h8xs7pu" path="res://Sprite/Tiles/Dungeon Tile Set/Dungeon Tile Set.png" id="3_h2yge"]
+[ext_resource type="Texture2D" uid="uid://byrt35h8xs7pu" path="res://Assets/Tiles/Dungeon Tile Set/Dungeon Tile Set.png" id="3_h2yge"]
 [ext_resource type="PackedScene" uid="uid://dj3arf08sg3pk" path="res://player_2.tscn" id="4_1bvp3"]
 [ext_resource type="Script" uid="uid://byvx4cft0ao7w" path="res://hitbox.gd" id="5_lquwl"]
 [ext_resource type="PackedScene" uid="uid://b37xywebn3f4o" path="res://victory_screen.tscn" id="7_272bh"]
