@@ -145,7 +145,7 @@ func _movement(delta: float) -> void:
 		
 		if dash_timer <= 0:
 			is_dashing = false
-			velocity.y = 0
+			velocity = Vector2.ZERO
 			# Resetea la rotación
 			pivot.scale.x = 1 
 			pivot.rotation = 0

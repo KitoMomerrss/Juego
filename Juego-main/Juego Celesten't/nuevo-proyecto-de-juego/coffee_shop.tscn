@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=4 uid="uid://d20hwqa3rbrln"]
+[gd_scene load_steps=6 format=4 uid="uid://d20hwqa3rbrln"]
 
 [ext_resource type="Texture2D" uid="uid://byrt35h8xs7pu" path="res://Assets/Tiles/Dungeon Tile Set/Dungeon Tile Set.png" id="1_geamo"]
 [ext_resource type="Texture2D" uid="uid://vvdlrud3hd8n" path="res://Assets/Tiles/GameCube - Super Smash Bros Melee - Test Stage.png" id="3_x8ay4"]
-[ext_resource type="PackedScene" uid="uid://dj3arf08sg3pk" path="res://player_2.tscn" id="4_jtjhp"]
 [ext_resource type="PackedScene" uid="uid://cq6quix4khac1" path="res://player_1.tscn" id="4_x8ay4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8wjeh"]
@@ -253,10 +252,6 @@ offset_right = 2331.0
 offset_bottom = 1445.0
 texture = ExtResource("3_x8ay4")
 stretch_mode = 4
-
-[node name="Player 2" parent="." instance=ExtResource("4_jtjhp")]
-position = Vector2(353, 582)
-scale = Vector2(0.75, 0.75)
 
 [node name="Player 1" parent="." instance=ExtResource("4_x8ay4")]
 position = Vector2(207, 627)
