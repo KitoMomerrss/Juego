@@ -37,6 +37,8 @@ var loser = false
 
 var dash_pressed_last_frame = false
 var jump_pressed = false
+var jump_just_pressed := false
+var walljump_pressed = false
 
 var knockback_time = 0
 var is_knockback = false
@@ -147,7 +149,7 @@ func _movement(delta: float) -> void:
 			is_dashing = false
 			velocity = Vector2.ZERO
 			# Resetea la rotación
-			pivot.scale.x = 1 
+			pivot.scale.x = sign(raw_x)
 			pivot.rotation = 0
 	
 	if is_knockback:
@@ -157,14 +159,14 @@ func _movement(delta: float) -> void:
 			is_knockback = false
 			
 	else:
-		
 		if not is_on_floor() and walljumpdetection.is_colliding():
+			if is_dashing == true: # Esto arregla un poco el walljump desde dash diagonal
+				pivot.scale.x = sign(raw_x)
+				pivot.rotation = 0
 			state = State.WALL_JUMP
 			
 		 
 		if not is_dashing and not is_knockback:
-			
-			
 		#moverse con mando
 			velocity.x = move_toward(velocity.x, speed * x, delta * acceleration)
 			#velocity.x = x  * speed
@@ -175,7 +177,7 @@ func _movement(delta: float) -> void:
 		var jump_input = Input.is_joy_button_pressed(device_id, 1)
 		if jump_input and not jump_pressed and is_on_floor():
 			velocity.y = jump_force
-			print("¡Jugador saltó!")
+			#print("¡Jugador saltó!")
 		jump_pressed = jump_input
 		
 		
@@ -228,7 +230,9 @@ func _wall_jump(delta: float) -> void:
 	velocity.y += 0.1 * gravity * delta
 	move_and_slide()
 	
-	if Input.is_joy_button_pressed(device_id, 1):
+	jump_just_pressed = Input.is_joy_button_pressed(device_id, 1)
+	if jump_just_pressed and not walljump_pressed:
+		print("walljump")
 		pivot.scale.x *= -1
 		playback.travel("wall jump")
 		velocity.y = jump_force
@@ -236,14 +240,18 @@ func _wall_jump(delta: float) -> void:
 		#wall_timer -= delta
 		#if wall_timer <= 0:
 		state = State.MOVEMENT
+		can_dash = true # Posibilidad de hacer dash luego de walljump
 		
 	if is_on_floor():
 		state = State.MOVEMENT
+	
+	walljump_pressed = jump_just_pressed
 
 func apply_knockback(direction: Vector2, force: float):
 	var knockback_velocity = direction.normalized() * force
 	velocity = knockback_velocity  # si usas physics-based movement
 	is_knockback = true
+	can_dash = true 	# Posibilidad de hacer dash luego de acertar un ataque
 	knockback_time = 0.5 # segundos de knockback
 	
 
@@ -266,7 +274,7 @@ func start_dash(direction: Vector2):
 	if pivot.rotation <= -2 or 2 <= pivot.rotation:
 		pivot.rotation = dash_direction.angle() - PI
 
-	can_dash = true # CAMBIAR A FALSE EVENTUALMENTE
+	can_dash = false # CAMBIAR A TRUE SOLO PARA DEBUG
 
 
 #funcion anti drift XD
