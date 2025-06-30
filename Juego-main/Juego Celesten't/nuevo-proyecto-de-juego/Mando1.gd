@@ -59,7 +59,6 @@ enum State {
 }
 
 func _ready() -> void:
-	
 	stocks = GlobalState.starting_lives
 	label.text = " %d " %stocks
 	

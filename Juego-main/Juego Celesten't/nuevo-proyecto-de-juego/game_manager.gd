@@ -13,6 +13,10 @@ var current_scenario : Node
 
 
 func _ready():
+
+	player_1.scale *= 0.75
+	player_2.scale *= 0.75
+	
 	load_selected_scenario()
 	victory_screen.visible = false
 	
@@ -34,6 +38,7 @@ func load_selected_scenario():
 		$Stage.add_child(scenario_instance)
 	else:
 		push_error("Índice de escenario inválido: " + str(index))
+	
 		
 func game_progress() -> void:
 	
