@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://dam3p32hnwgre"]
+[gd_scene load_steps=4 format=3 uid="uid://dam3p32hnwgre"]
 
 [ext_resource type="Script" uid="uid://d4llnqpkwrs58" path="res://battlesettings.gd" id="1_mqv7u"]
+[ext_resource type="Theme" uid="uid://cedt52457m3oj" path="res://Themes/new_theme.tres" id="2_2aci1"]
+[ext_resource type="Theme" uid="uid://0g20thmqv6ex" path="res://Themes/them2.tres" id="3_7kigj"]
 
 [node name="Battlesettings" type="Control"]
 layout_mode = 3
@@ -23,6 +25,7 @@ grow_vertical = 2
 layout_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/PanelContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Stocks, Tiempo, Escenario, etc... Proximamente"
@@ -33,3 +36,118 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "Play"
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_left = 59.0
+offset_top = 88.0
+offset_right = 109.0
+offset_bottom = 111.0
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer2"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer2/PanelContainer"]
+layout_mode = 2
+text = "Vidas
+
+Power Up"
+
+[node name="MarginContainer3" type="MarginContainer" parent="."]
+layout_mode = 2
+offset_left = 200.0
+offset_top = 88.0
+offset_right = 275.0
+offset_bottom = 163.0
+
+[node name="PanelContainer2" type="PanelContainer" parent="MarginContainer3"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="MenosStock" type="Button" parent="MarginContainer3/PanelContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+text = "◀"
+
+[node name="MasStock" type="Button" parent="MarginContainer3/PanelContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+text = "▶"
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer3"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Vidas" type="Label" parent="MarginContainer3/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="PanelContainer3" type="PanelContainer" parent="MarginContainer3"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="SiPU" type="Button" parent="MarginContainer3/PanelContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Si  "
+
+[node name="NoPU" type="Button" parent="MarginContainer3/PanelContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+text = "No"
+
+[node name="MarginContainer4" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -450.0
+offset_top = -100.0
+offset_right = 450.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer2" type="PanelContainer" parent="MarginContainer4"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Stage1" type="Button" parent="MarginContainer4/PanelContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_2aci1")
+text = "Dungeon"
+
+[node name="PanelContainer3" type="PanelContainer" parent="MarginContainer4"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Stage2" type="Button" parent="MarginContainer4/PanelContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("3_7kigj")
+text = "Volcano"
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer4"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="Label" type="Label" parent="MarginContainer4/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Próximamente..."

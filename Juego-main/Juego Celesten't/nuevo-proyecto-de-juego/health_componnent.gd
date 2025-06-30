@@ -4,6 +4,8 @@ extends Node
 signal died
 signal health_changed(value)
 
+var regen_timer: float = 0.0
+
 @export var health: float = 100:
 	set(value):
 		if health == value:
@@ -17,4 +19,10 @@ signal health_changed(value)
 
 func take_damage(damage):
 	health -= damage
+	
+func _process(delta):
+	regen_timer += delta
+	if regen_timer >= 3.0:
+		regen_timer = 0.0
+		health = min(health + 10, max_health)
 	

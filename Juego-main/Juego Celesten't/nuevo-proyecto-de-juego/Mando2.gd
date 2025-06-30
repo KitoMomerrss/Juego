@@ -26,7 +26,7 @@ extends CharacterBody2D
 
 var dead = false
 var respawn_position: Vector2
-var stocks = 3
+var stocks : int
 var loser = false
 
 var dash_pressed_last_frame = false
@@ -46,12 +46,17 @@ var can_dash = true
 
 
 func _ready() -> void:
+	
+	stocks = GlobalState.starting_lives
+	label.text = " %d " %stocks
+	
 	if respawn_position == Vector2.ZERO:
 		respawn_position = global_position
 	health_component_2.health_changed.connect(_on_health_changed)
 	health_bar.value = health_component_2.health
 	health_component_2.died.connect(death)
 	label.text = "%d" %stocks
+	stocks = GlobalState.starting_lives
 	
 func _on_health_changed(value: float) -> void:
 	
@@ -84,7 +89,7 @@ func respawn() -> void:
 func lost() -> void:
 	print("loserxd")
 	loser = true
-	get_parent().game_progress()
+	get_parent().get_parent().game_progress()
 	
 	
 func _physics_process(delta: float) -> void:
