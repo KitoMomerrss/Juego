@@ -1,0 +1,26 @@
+[gd_scene load_steps=7 format=3 uid="uid://dcej6f4bxgunv"]
+
+[ext_resource type="Script" uid="uid://bfddk8u3jjlak" path="res://game_manager.gd" id="1_d5upp"]
+[ext_resource type="PackedScene" uid="uid://24j3fk22gmf3" path="res://main.tscn" id="2_shwjl"]
+[ext_resource type="PackedScene" uid="uid://cq6quix4khac1" path="res://player_1.tscn" id="2_vk86k"]
+[ext_resource type="PackedScene" uid="uid://cjvqs1c634s4e" path="res://Stages/volcano.tscn" id="3_eakoi"]
+[ext_resource type="PackedScene" uid="uid://dj3arf08sg3pk" path="res://player_2.tscn" id="3_shwjl"]
+[ext_resource type="PackedScene" uid="uid://b37xywebn3f4o" path="res://victory_screen.tscn" id="4_eakoi"]
+
+[node name="GameManager" type="Node"]
+script = ExtResource("1_d5upp")
+available_scenarios = Array[PackedScene]([ExtResource("2_shwjl"), ExtResource("3_eakoi")])
+
+[node name="Stage" type="Node" parent="."]
+
+[node name="Players" type="Node" parent="."]
+
+[node name="Player 1" parent="Players" instance=ExtResource("2_vk86k")]
+position = Vector2(513, 493)
+
+[node name="Player 2" parent="Players" instance=ExtResource("3_shwjl")]
+position = Vector2(1023, 494)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="VictoryScreen" parent="CanvasLayer" instance=ExtResource("4_eakoi")]

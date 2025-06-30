@@ -1,10 +1,8 @@
-[gd_scene load_steps=9 format=4 uid="uid://cjvqs1c634s4e"]
+[gd_scene load_steps=7 format=4 uid="uid://cjvqs1c634s4e"]
 
 [ext_resource type="Texture2D" uid="uid://bv7fra5evnf70" path="res://icon.svg" id="2_4q4w3"]
 [ext_resource type="TileSet" uid="uid://b1tuidxofwijy" path="res://Assets/Tiles/volcano_tileset.tres" id="4_g8wfw"]
 [ext_resource type="Texture2D" uid="uid://c41q2kl1ym3wk" path="res://Assets/Tiles/free_volcano_tileset/images/Background.png" id="4_jldjm"]
-[ext_resource type="PackedScene" uid="uid://cq6quix4khac1" path="res://player_1.tscn" id="5_apxif"]
-[ext_resource type="PackedScene" uid="uid://dj3arf08sg3pk" path="res://player_2.tscn" id="6_d23br"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_7dm0k"]
 distance = -160.0
@@ -61,15 +59,6 @@ tile_set = ExtResource("4_g8wfw")
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
 zoom = Vector2(0.75, 0.779)
-
-[node name="Player 1" parent="." instance=ExtResource("5_apxif")]
-position = Vector2(493, 229)
-scale = Vector2(0.75, 0.75)
-
-[node name="Player 2" parent="." instance=ExtResource("6_d23br")]
-visible = false
-position = Vector2(1048, 226)
-scale = Vector2(0.75, 0.75)
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
 

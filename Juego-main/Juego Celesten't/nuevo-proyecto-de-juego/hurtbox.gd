@@ -4,9 +4,8 @@ extends Area2D
 
 @onready var health_component: HealthComponent = $"../HealthComponent"
 
-
-
 @export var health : int = 100
+
 
 #signal on_hit(damage : float, hitbox : Area2D)
 #signal apply_knockback(hitbox : Area2D)
@@ -19,7 +18,9 @@ func _on_area_entered(area: Area2D) -> void:
 	if hitbox and health_component:
 		health_component.take_damage(hitbox.damage)
 		hitbox.damage_dealt.emit()
-		
+
+
+
 #func _on_hitbox_hit(damage : int, hitbox : Area2D):
 	#manage damage animations and death signals here (I'm simplifying)
 #	health -= damage 
