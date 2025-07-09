@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://24j3fk22gmf3"]
+[gd_scene load_steps=10 format=4 uid="uid://24j3fk22gmf3"]
 
 [ext_resource type="Texture2D" uid="uid://bv7fra5evnf70" path="res://icon.svg" id="2_0xm2m"]
 [ext_resource type="Texture2D" uid="uid://byrt35h8xs7pu" path="res://Assets/Tiles/Dungeon Tile Set/Dungeon Tile Set.png" id="3_h2yge"]
@@ -36,9 +36,9 @@ texture = ExtResource("3_h2yge")
 3:1/0/terrains_peering_bit/bottom_left_corner = 0
 3:1/0/terrains_peering_bit/left_side = 0
 5:1/0 = 0
-5:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, -8, 8, 8, -8, 8)
+5:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 6:1/0 = 0
-6:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, 8, -8, 8)
+6:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 9:1/0 = 0
 10:1/0 = 0
 11:1/0 = 0
@@ -240,6 +240,9 @@ sources/0 = SubResource("TileSetAtlasSource_lquwl")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7mycd"]
 size = Vector2(195, 20)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1bvp3"]
+size = Vector2(192, 65)
+
 [node name="Main2" type="Node2D"]
 
 [node name="RigidBody2D" type="StaticBody2D" parent="."]
@@ -301,3 +304,9 @@ metadata/_custom_type_script = "uid://byvx4cft0ao7w"
 position = Vector2(161.5, 691)
 shape = SubResource("RectangleShape2D_7mycd")
 disabled = true
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(352, 383.5)
+shape = SubResource("RectangleShape2D_1bvp3")

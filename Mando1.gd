@@ -157,7 +157,7 @@ func _movement(delta: float) -> void:
 	
 	if is_knockback:
 		knockback_time -= delta
-		velocity = velocity.move_toward(Vector2.ZERO, delta * 500)
+		#velocity = velocity.move_toward(Vector2.ZERO, delta * 500)
 		if knockback_time <= 0.0:
 			is_knockback = false
 			
@@ -226,9 +226,12 @@ func _movement(delta: float) -> void:
 		
 
 func _wall_jump(delta: float) -> void:
-	#var wall_timer = 0.4
-	if not walljumpdetection.is_colliding():
-		state = State.MOVEMENT
+	
+	is_dashing = false
+	
+	var wall_timer = 0.4
+	#if not walljumpdetection.is_colliding():
+	#	state = State.MOVEMENT
 	playback.travel("wall slide")
 	velocity.y += 0.1 * gravity * delta
 	move_and_slide()
@@ -240,10 +243,12 @@ func _wall_jump(delta: float) -> void:
 		playback.travel("wall jump")
 		velocity.y = jump_force
 		velocity.x = - sign(pivot.scale.x) *  jump_force
-		#wall_timer -= delta
-		#if wall_timer <= 0:
-		state = State.MOVEMENT
+		wall_timer -= delta/10
+		if wall_timer <= 0:
+			state = State.MOVEMENT
 		can_dash = true # Posibilidad de hacer dash luego de walljump
+	if not walljumpdetection.is_colliding():
+		state = State.MOVEMENT
 		
 	if is_on_floor():
 		state = State.MOVEMENT
