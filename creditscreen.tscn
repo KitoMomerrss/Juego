@@ -28,7 +28,8 @@ grow_horizontal = 2
 grow_vertical = 2
 bbcode_enabled = true
 text = "[center] [font_size={30}]Staff Credits [/font_size]
-[font_size={16}]
+[font_size={16}]Kaze Sentaxi: Wind Warriors
+
 Game by
 [font_size={18}]GOTY of the Year
 [font_size={13}]Formed by
@@ -55,7 +56,6 @@ RPG Item Set by [color=yellow]hernandack.itch.io[/color][/font_size][/font_size]
 Sounds
 
 [font_size={13}]SFX
-
 All Sound Effects from [color=yellow]freesound.org[/color][/font_size]
 "
 

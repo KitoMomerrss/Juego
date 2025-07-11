@@ -647,6 +647,7 @@ scale = Vector2(-1, 1)
 [node name="SpriteFlipper" type="Node2D" parent="Pivot"]
 
 [node name="Sprite2D" type="Sprite2D" parent="Pivot/SpriteFlipper"]
+self_modulate = Color(0.996078, 0.501961, 0.462745, 1)
 material = SubResource("ShaderMaterial_gf2bl")
 scale = Vector2(3, 3)
 texture = ExtResource("2_jaoer")
