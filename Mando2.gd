@@ -15,6 +15,9 @@ extends CharacterBody2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var playback = animation_tree.get("parameters/playback")
+@onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
+const HIT = preload("res://Assets/Audio/hit.wav")
+const RESPAWN = preload("res://Assets/Audio/Respawn.wav")
 
 @onready var pivot: Node2D = $Pivot
 @onready var sprite_flipper: Node2D = $Pivot/SpriteFlipper
@@ -102,7 +105,10 @@ func respawn() -> void:
 	dead = false
 	health_component_2.health = health_component_2.max_health
 	global_position = respawn_position
-
+	audio_stream_player_2d.stop()
+	audio_stream_player_2d.stream = RESPAWN
+	audio_stream_player_2d.play()
+	
 func lost() -> void:
 	print("loserxd")
 	loser = true
@@ -262,7 +268,9 @@ func apply_knockback(direction: Vector2, force: float):
 	is_knockback = true
 	can_dash = true 	# Posibilidad de hacer dash luego de acertar un ataque
 	knockback_time = 0.5 # segundos de knockback
-	
+	audio_stream_player_2d.stop()
+	audio_stream_player_2d.stream = HIT
+	audio_stream_player_2d.play()
 
 
 func start_dash(direction: Vector2):

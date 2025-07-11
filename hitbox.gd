@@ -4,6 +4,8 @@ extends Area2D
 @export var damage : int = 10
  
 @export var knockback = 600
+@export var knockback_player = 450
+
 
 signal damage_dealt
 
@@ -27,18 +29,27 @@ func _on_hitbox_area_entered(area):
 	if hurtbox:
 		var enemy = area.get_parent() # Asumimos que Hurtbox es hijo del enemigo
 		var player = get_parent()
-		
-		if player as CharacterBody2D:
-			var direction = player.dash_direction
+	
+	
+		if enemy as TileMapLayer:
+			player.is_dashing = false
 			
-			if enemy.is_dashing:
+			player.pivot.rotation = 0
+			pass
+		elif player as CharacterBody2D:
+			
+			var direction = player.dash_direction
+			player.can_dash = true
+			if enemy as CharacterBody2D and enemy.is_dashing:
 				
-				enemy.apply_knockback(direction, knockback/2)
-					
-			else:
+				enemy.apply_knockback(direction, knockback_player/2)
 				
-				enemy.apply_knockback(direction, knockback)
-		else:
-			enemy.apply_knockback(Vector2(0,1), knockback)
+			if enemy as CharacterBody2D and not enemy.is_dashing:
+				enemy.apply_knockback(direction, knockback_player)
+		
+		elif enemy as CharacterBody2D:
+			enemy.apply_knockback(Vector2.UP, knockback/2)
+			print("pinchate")
+		
 		
 		

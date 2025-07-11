@@ -15,10 +15,15 @@ func _ready():
 
 func _on_area_entered(area: Area2D) -> void:
 	var hitbox = area as Hitbox
+	
 	if hitbox and health_component:
-		health_component.take_damage(hitbox.damage)
-		hitbox.damage_dealt.emit()
-
+		var player = hitbox.get_parent()
+		if player as CharacterBody2D:
+			health_component.take_damage(hitbox.damage * player.damage_multiplier)
+			hitbox.damage_dealt.emit()
+		else:
+			health_component.take_damage(hitbox.damage)
+			hitbox.damage_dealt.emit()
 
 
 #func _on_hitbox_hit(damage : int, hitbox : Area2D):
