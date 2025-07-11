@@ -1,18 +1,16 @@
-[gd_scene load_steps=60 format=3 uid="uid://dj3arf08sg3pk"]
+[gd_scene load_steps=58 format=3 uid="uid://bmjs0q2v8k3ij"]
 
-[ext_resource type="Script" uid="uid://df77mqgunc0ma" path="res://mando_3.gd" id="1_up5o4"]
-[ext_resource type="Texture2D" uid="uid://dn5365af6g7ow" path="res://Assets/Sprite/FREE_Samurai 2D Pixel Art v1.2/FREE_Samurai 2D Pixel Art v1.2/Sprites/IDLE.png" id="2_jaoer"]
-[ext_resource type="Texture2D" uid="uid://cmbvvvco3aj3t" path="res://Assets/Sprite/Premium/HURT.png" id="3_8lhrm"]
-[ext_resource type="AudioStream" uid="uid://ql37cpokn623" path="res://Audio/hit.wav" id="4_ehhk3"]
-[ext_resource type="Texture2D" uid="uid://ckxkhswicuhbs" path="res://Assets/Sprite/FREE_Samurai 2D Pixel Art v1.2/FREE_Samurai 2D Pixel Art v1.2/Sprites/RUN.png" id="4_up5o4"]
-[ext_resource type="Texture2D" uid="uid://dj6524odbakta" path="res://Assets/Sprite/Premium/DASH.png" id="5_6iqoo"]
-[ext_resource type="Texture2D" uid="uid://ca3oaajdf73yf" path="res://Assets/Sprite/Premium/JUMP.png" id="6_ehhk3"]
-[ext_resource type="AudioStream" uid="uid://dpffrl42h3krv" path="res://Audio/dsah_whoosh.wav" id="7_7d0q2"]
-[ext_resource type="Script" uid="uid://byvx4cft0ao7w" path="res://hitbox.gd" id="7_mt4e1"]
-[ext_resource type="Texture2D" uid="uid://c540c7453i7tw" path="res://Assets/Sprite/Premium/WALL JUMP.png" id="7_wh5uk"]
-[ext_resource type="Texture2D" uid="uid://c6cs2567itae" path="res://Assets/Sprite/Premium/WALL SLIDE.png" id="8_ehhk3"]
-[ext_resource type="Script" uid="uid://c8v8vjfhnbg10" path="res://hurtbox.gd" id="10_mt4e1"]
-[ext_resource type="Script" uid="uid://b525b7xje3hvk" path="res://health_componnent.gd" id="11_7d0q2"]
+[ext_resource type="Script" uid="uid://df77mqgunc0ma" path="res://mando_3.gd" id="1_dwbw6"]
+[ext_resource type="Texture2D" uid="uid://dn5365af6g7ow" path="res://Assets/Sprite/FREE_Samurai 2D Pixel Art v1.2/FREE_Samurai 2D Pixel Art v1.2/Sprites/IDLE.png" id="2_w8d8i"]
+[ext_resource type="Texture2D" uid="uid://cmbvvvco3aj3t" path="res://Assets/Sprite/Premium/HURT.png" id="3_l6pkw"]
+[ext_resource type="Texture2D" uid="uid://ckxkhswicuhbs" path="res://Assets/Sprite/FREE_Samurai 2D Pixel Art v1.2/FREE_Samurai 2D Pixel Art v1.2/Sprites/RUN.png" id="4_jbco1"]
+[ext_resource type="Texture2D" uid="uid://dj6524odbakta" path="res://Assets/Sprite/Premium/DASH.png" id="5_6rrsb"]
+[ext_resource type="Texture2D" uid="uid://ca3oaajdf73yf" path="res://Assets/Sprite/Premium/JUMP.png" id="6_ws8r4"]
+[ext_resource type="Texture2D" uid="uid://c540c7453i7tw" path="res://Assets/Sprite/Premium/WALL JUMP.png" id="7_yxmtl"]
+[ext_resource type="Texture2D" uid="uid://c6cs2567itae" path="res://Assets/Sprite/Premium/WALL SLIDE.png" id="8_dh5kl"]
+[ext_resource type="Script" uid="uid://byvx4cft0ao7w" path="res://hitbox.gd" id="9_i8tma"]
+[ext_resource type="Script" uid="uid://c8v8vjfhnbg10" path="res://hurtbox.gd" id="10_s15rn"]
+[ext_resource type="Script" uid="uid://b525b7xje3hvk" path="res://health_componnent.gd" id="11_nilxm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gf2bl"]
 
@@ -34,7 +32,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("3_8lhrm")]
+"values": [ExtResource("3_l6pkw")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -72,21 +70,6 @@ tracks/3/keys = {
 "update": 1,
 "values": [true]
 }
-tracks/4/type = "audio"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("AudioStreamPlayer2D")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"clips": [{
-"end_offset": 0.23,
-"start_offset": 0.0,
-"stream": ExtResource("4_ehhk3")
-}],
-"times": PackedFloat32Array(0)
-}
-tracks/4/use_blend = true
 
 [sub_resource type="Animation" id="Animation_txlgs"]
 resource_name = "Idle"
@@ -115,7 +98,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_jaoer")]
+"values": [ExtResource("2_w8d8i")]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -154,7 +137,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_jaoer")]
+"values": [ExtResource("2_w8d8i")]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -208,7 +191,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("4_up5o4")]
+"values": [ExtResource("4_jbco1")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -261,7 +244,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("5_6iqoo")]
+"values": [ExtResource("5_6rrsb")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -311,21 +294,6 @@ tracks/4/keys = {
 "update": 0,
 "values": [Color(1, 0.105882, 0.0862745, 1), Color(1, 1, 1, 1)]
 }
-tracks/5/type = "audio"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("AudioStreamPlayer2D")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"clips": [{
-"end_offset": 0.0,
-"start_offset": 0.0,
-"stream": ExtResource("7_7d0q2")
-}],
-"times": PackedFloat32Array(0)
-}
-tracks/5/use_blend = true
 
 [sub_resource type="Animation" id="Animation_1vtoj"]
 resource_name = "fall"
@@ -342,7 +310,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("6_ehhk3")]
+"values": [ExtResource("6_ws8r4")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -396,7 +364,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("6_ehhk3")]
+"values": [ExtResource("6_ws8r4")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -449,7 +417,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_wh5uk")]
+"values": [ExtResource("7_yxmtl")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -503,7 +471,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("8_ehhk3")]
+"values": [ExtResource("8_dh5kl")]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -637,19 +605,18 @@ bg_color = Color(0, 0, 0, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gf2bl"]
 bg_color = Color(0.24742, 0.771386, 3.85046e-07, 1)
 
-[node name="Player 2" type="CharacterBody2D"]
+[node name="Player 3" type="CharacterBody2D"]
 collision_layer = 2
-script = ExtResource("1_up5o4")
+script = ExtResource("1_dwbw6")
 
 [node name="Pivot" type="Node2D" parent="."]
-scale = Vector2(-1, 1)
 
 [node name="SpriteFlipper" type="Node2D" parent="Pivot"]
 
 [node name="Sprite2D" type="Sprite2D" parent="Pivot/SpriteFlipper"]
 material = SubResource("ShaderMaterial_gf2bl")
 scale = Vector2(3, 3)
-texture = ExtResource("2_jaoer")
+texture = ExtResource("2_w8d8i")
 offset = Vector2(0, -16.07)
 hframes = 16
 
@@ -672,7 +639,7 @@ anim_player = NodePath("../AnimationPlayer")
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 2
 collision_mask = 2
-script = ExtResource("7_mt4e1")
+script = ExtResource("9_i8tma")
 damage = 30
 metadata/_custom_type_script = "uid://byvx4cft0ao7w"
 
@@ -681,14 +648,14 @@ shape = SubResource("CapsuleShape2D_s08of")
 disabled = true
 
 [node name="Hurtbox" type="Area2D" parent="."]
-script = ExtResource("10_mt4e1")
+script = ExtResource("10_s15rn")
 metadata/_custom_type_script = "uid://c8v8vjfhnbg10"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CapsuleShape2D_3aesf")
 
 [node name="HealthComponent" type="Node" parent="."]
-script = ExtResource("11_7d0q2")
+script = ExtResource("11_nilxm")
 metadata/_custom_type_script = "uid://b525b7xje3hvk"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -718,5 +685,3 @@ theme_override_constants/margin_left = -15
 layout_mode = 2
 size_flags_horizontal = 0
 text = "3"
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
