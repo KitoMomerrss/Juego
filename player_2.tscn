@@ -1,22 +1,15 @@
-[gd_scene load_steps=58 format=3 uid="uid://dj3arf08sg3pk"]
+[gd_scene load_steps=47 format=3 uid="uid://dj3arf08sg3pk"]
 
-[ext_resource type="Script" uid="uid://df77mqgunc0ma" path="res://mando_3.gd" id="1_up5o4"]
+[ext_resource type="Script" uid="uid://b6jvdbl14l6c3" path="res://Mando2.gd" id="1_6iqoo"]
 [ext_resource type="Texture2D" uid="uid://dn5365af6g7ow" path="res://Assets/Sprite/FREE_Samurai 2D Pixel Art v1.2/FREE_Samurai 2D Pixel Art v1.2/Sprites/IDLE.png" id="2_jaoer"]
 [ext_resource type="Texture2D" uid="uid://cmbvvvco3aj3t" path="res://Assets/Sprite/Premium/HURT.png" id="3_8lhrm"]
+[ext_resource type="Script" uid="uid://boyu13ou48osb" path="res://Componentes/owner_flip_sprite.gd" id="3_jaoer"]
 [ext_resource type="Texture2D" uid="uid://ckxkhswicuhbs" path="res://Assets/Sprite/FREE_Samurai 2D Pixel Art v1.2/FREE_Samurai 2D Pixel Art v1.2/Sprites/RUN.png" id="4_up5o4"]
 [ext_resource type="Texture2D" uid="uid://dj6524odbakta" path="res://Assets/Sprite/Premium/DASH.png" id="5_6iqoo"]
 [ext_resource type="Texture2D" uid="uid://ca3oaajdf73yf" path="res://Assets/Sprite/Premium/JUMP.png" id="6_ehhk3"]
 [ext_resource type="Script" uid="uid://byvx4cft0ao7w" path="res://hitbox.gd" id="7_mt4e1"]
-[ext_resource type="Texture2D" uid="uid://c540c7453i7tw" path="res://Assets/Sprite/Premium/WALL JUMP.png" id="7_wh5uk"]
-[ext_resource type="Texture2D" uid="uid://c6cs2567itae" path="res://Assets/Sprite/Premium/WALL SLIDE.png" id="8_ehhk3"]
-[ext_resource type="Script" uid="uid://c8v8vjfhnbg10" path="res://hurtbox.gd" id="10_mt4e1"]
-[ext_resource type="Script" uid="uid://b525b7xje3hvk" path="res://health_componnent.gd" id="11_7d0q2"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gf2bl"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i66ns"]
-radius = 16.0
-height = 94.0
+[ext_resource type="Script" uid="uid://gj64baqfohid" path="res://hurtbox_2.gd" id="8_jaoer"]
+[ext_resource type="Script" uid="uid://cdmuybmwt8tu4" path="res://health_component2.gd" id="9_jaoer"]
 
 [sub_resource type="Animation" id="Animation_x4625"]
 resource_name = "Hit"
@@ -25,7 +18,7 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Pivot/SpriteFlipper/Sprite2D:texture")
+tracks/0/path = NodePath("Pivot/Sprite2D:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -37,7 +30,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Pivot/SpriteFlipper/Sprite2D:hframes")
+tracks/1/path = NodePath("Pivot/Sprite2D:hframes")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -49,7 +42,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Pivot/SpriteFlipper/Sprite2D:frame")
+tracks/2/path = NodePath("Pivot/Sprite2D:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -57,18 +50,6 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 0, 1, 1, 2, 3]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Hitbox/CollisionShape2D:disabled")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_txlgs"]
@@ -79,7 +60,7 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Pivot/SpriteFlipper/Sprite2D:frame")
+tracks/0/path = NodePath("Pivot/Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -91,7 +72,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Pivot/SpriteFlipper/Sprite2D:texture")
+tracks/1/path = NodePath("Pivot/Sprite2D:texture")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -103,7 +84,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Pivot/SpriteFlipper/Sprite2D:hframes")
+tracks/2/path = NodePath("Pivot/Sprite2D:hframes")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -112,13 +93,25 @@ tracks/2/keys = {
 "update": 1,
 "values": [10]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Pivot/Sprite2D:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_dkxmd"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Pivot/SpriteFlipper/Sprite2D:frame")
+tracks/0/path = NodePath("Pivot/Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -130,7 +123,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Pivot/SpriteFlipper/Sprite2D:texture")
+tracks/1/path = NodePath("Pivot/Sprite2D:texture")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -142,7 +135,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Pivot/SpriteFlipper/Sprite2D:hframes")
+tracks/2/path = NodePath("Pivot/Sprite2D:hframes")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -166,14 +159,26 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Pivot/SpriteFlipper/Sprite2D:modulate")
+tracks/4/path = NodePath("Pivot/Sprite2D:modulate")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [Color(0.184314, 0.337255, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Hitbox:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_lq3ur"]
@@ -184,7 +189,7 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Pivot/SpriteFlipper/Sprite2D:texture")
+tracks/0/path = NodePath("Pivot/Sprite2D:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -196,7 +201,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Pivot/SpriteFlipper/Sprite2D:hframes")
+tracks/1/path = NodePath("Pivot/Sprite2D:hframes")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -208,7 +213,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Pivot/SpriteFlipper/Sprite2D:frame")
+tracks/2/path = NodePath("Pivot/Sprite2D:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -229,6 +234,18 @@ tracks/3/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Pivot/Sprite2D:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_x4m56"]
 resource_name = "dash"
@@ -237,7 +254,7 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Pivot/SpriteFlipper/Sprite2D:texture")
+tracks/0/path = NodePath("Pivot/Sprite2D:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -249,7 +266,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Pivot/SpriteFlipper/Sprite2D:hframes")
+tracks/1/path = NodePath("Pivot/Sprite2D:hframes")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -265,15 +282,15 @@ tracks/2/path = NodePath("Hitbox/CollisionShape2D:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [false]
+"values": [false, true]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Pivot/SpriteFlipper/Sprite2D:frame")
+tracks/3/path = NodePath("Pivot/Sprite2D:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -285,14 +302,26 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Pivot/SpriteFlipper/Sprite2D:modulate")
+tracks/4/path = NodePath("Pivot/Sprite2D:modulate")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0, 0.7),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(1, 0.105882, 0.0862745, 1), Color(1, 1, 1, 1)]
+"values": [Color(0.184314, 0.337255, 1, 1), Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = false
+tracks/5/path = NodePath("Hitbox:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.212152, 0.303239, 0.383949, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-45, 0), Vector2(-45, 0), Vector2(-45, 0), Vector2(-45, 0), Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_1vtoj"]
@@ -303,7 +332,7 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Pivot/SpriteFlipper/Sprite2D:texture")
+tracks/0/path = NodePath("Pivot/Sprite2D:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -315,7 +344,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Pivot/SpriteFlipper/Sprite2D:hframes")
+tracks/1/path = NodePath("Pivot/Sprite2D:hframes")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -339,7 +368,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Pivot/SpriteFlipper/Sprite2D:frame")
+tracks/3/path = NodePath("Pivot/Sprite2D:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -347,6 +376,18 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [2]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Pivot/Sprite2D:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_u34kq"]
@@ -357,7 +398,7 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Pivot/SpriteFlipper/Sprite2D:texture")
+tracks/0/path = NodePath("Pivot/Sprite2D:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -369,7 +410,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Pivot/SpriteFlipper/Sprite2D:hframes")
+tracks/1/path = NodePath("Pivot/Sprite2D:hframes")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -381,7 +422,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Pivot/SpriteFlipper/Sprite2D:frame")
+tracks/2/path = NodePath("Pivot/Sprite2D:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -402,88 +443,17 @@ tracks/3/keys = {
 "update": 1,
 "values": [true]
 }
-
-[sub_resource type="Animation" id="Animation_ugj0w"]
-resource_name = "wall jump"
-length = 0.3
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Pivot/SpriteFlipper/Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Pivot/Sprite2D:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("7_wh5uk")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Pivot/SpriteFlipper/Sprite2D:hframes")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [3]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Pivot/SpriteFlipper/Sprite2D:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [0, 1, 2]
-}
-
-[sub_resource type="Animation" id="Animation_72vom"]
-resource_name = "wall slide"
-length = 0.3
-loop_mode = 1
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Pivot/SpriteFlipper/Sprite2D:hframes")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [3]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Pivot/SpriteFlipper/Sprite2D:texture")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("8_ehhk3")]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Pivot/SpriteFlipper/Sprite2D:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [0, 1, 2]
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gf2bl"]
@@ -494,9 +464,7 @@ _data = {
 &"RUN": SubResource("Animation_lq3ur"),
 &"dash": SubResource("Animation_x4m56"),
 &"fall": SubResource("Animation_1vtoj"),
-&"jump": SubResource("Animation_u34kq"),
-&"wall jump": SubResource("Animation_ugj0w"),
-&"wall slide": SubResource("Animation_72vom")
+&"jump": SubResource("Animation_u34kq")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tenil"]
@@ -516,12 +484,6 @@ animation = &"fall"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qqcrl"]
 animation = &"jump"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_n0cnt"]
-animation = &"wall jump"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_x4m56"]
-animation = &"wall slide"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8nydg"]
 advance_mode = 2
@@ -558,17 +520,6 @@ switch_mode = 2
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dkxmd"]
 switch_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_u34kq"]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1vtoj"]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_x4625"]
-switch_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tenil"]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_72vom"]
-
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_utsw1"]
 states/End/position = Vector2(787, 43)
 states/Hit/node = SubResource("AnimationNodeAnimation_tenil")
@@ -584,12 +535,8 @@ states/fall/node = SubResource("AnimationNodeAnimation_iyu8a")
 states/fall/position = Vector2(558, -187)
 states/jump/node = SubResource("AnimationNodeAnimation_qqcrl")
 states/jump/position = Vector2(451, -187)
-"states/wall jump/node" = SubResource("AnimationNodeAnimation_n0cnt")
-"states/wall jump/position" = Vector2(663, -308)
-"states/wall slide/node" = SubResource("AnimationNodeAnimation_x4m56")
-"states/wall slide/position" = Vector2(510, -308)
-transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_8nydg"), "Idle", "RUN", SubResource("AnimationNodeStateMachineTransition_fvdx0"), "RUN", "dash", SubResource("AnimationNodeStateMachineTransition_efhue"), "Idle", "dash", SubResource("AnimationNodeStateMachineTransition_3phom"), "dash", "RUN", SubResource("AnimationNodeStateMachineTransition_jrl08"), "RUN", "Idle", SubResource("AnimationNodeStateMachineTransition_qdsuw"), "dash", "Idle", SubResource("AnimationNodeStateMachineTransition_k0xj2"), "Idle", "jump", SubResource("AnimationNodeStateMachineTransition_yef3s"), "jump", "fall", SubResource("AnimationNodeStateMachineTransition_mviyr"), "jump", "dash", SubResource("AnimationNodeStateMachineTransition_d614h"), "fall", "dash", SubResource("AnimationNodeStateMachineTransition_dnvjy"), "dash", "fall", SubResource("AnimationNodeStateMachineTransition_cu0p0"), "fall", "RUN", SubResource("AnimationNodeStateMachineTransition_oexav"), "RUN", "jump", SubResource("AnimationNodeStateMachineTransition_43kbg"), "Hit", "fall", SubResource("AnimationNodeStateMachineTransition_txlgs"), "Hit", "Idle", SubResource("AnimationNodeStateMachineTransition_dkxmd"), "jump", "wall slide", SubResource("AnimationNodeStateMachineTransition_u34kq"), "wall slide", "wall jump", SubResource("AnimationNodeStateMachineTransition_1vtoj"), "wall jump", "fall", SubResource("AnimationNodeStateMachineTransition_x4625"), "fall", "wall slide", SubResource("AnimationNodeStateMachineTransition_tenil"), "wall slide", "fall", SubResource("AnimationNodeStateMachineTransition_72vom")]
-graph_offset = Vector2(-159, -83.4445)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_8nydg"), "Idle", "RUN", SubResource("AnimationNodeStateMachineTransition_fvdx0"), "RUN", "dash", SubResource("AnimationNodeStateMachineTransition_efhue"), "Idle", "dash", SubResource("AnimationNodeStateMachineTransition_3phom"), "dash", "RUN", SubResource("AnimationNodeStateMachineTransition_jrl08"), "RUN", "Idle", SubResource("AnimationNodeStateMachineTransition_qdsuw"), "dash", "Idle", SubResource("AnimationNodeStateMachineTransition_k0xj2"), "Idle", "jump", SubResource("AnimationNodeStateMachineTransition_yef3s"), "jump", "fall", SubResource("AnimationNodeStateMachineTransition_mviyr"), "jump", "dash", SubResource("AnimationNodeStateMachineTransition_d614h"), "fall", "dash", SubResource("AnimationNodeStateMachineTransition_dnvjy"), "dash", "fall", SubResource("AnimationNodeStateMachineTransition_cu0p0"), "fall", "RUN", SubResource("AnimationNodeStateMachineTransition_oexav"), "RUN", "jump", SubResource("AnimationNodeStateMachineTransition_43kbg"), "Hit", "fall", SubResource("AnimationNodeStateMachineTransition_txlgs"), "Hit", "Idle", SubResource("AnimationNodeStateMachineTransition_dkxmd")]
+graph_offset = Vector2(-194, -65)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s08of"]
 radius = 19.0
@@ -599,34 +546,32 @@ height = 102.0
 radius = 19.0
 height = 98.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dkxmd"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i66ns"]
+radius = 16.0
+height = 94.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8lhrm"]
 bg_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gf2bl"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_up5o4"]
 bg_color = Color(0.24742, 0.771386, 3.85046e-07, 1)
 
 [node name="Player 2" type="CharacterBody2D"]
 collision_layer = 2
-script = ExtResource("1_up5o4")
+script = ExtResource("1_6iqoo")
 
 [node name="Pivot" type="Node2D" parent="."]
 scale = Vector2(-1, 1)
 
-[node name="SpriteFlipper" type="Node2D" parent="Pivot"]
-
-[node name="Sprite2D" type="Sprite2D" parent="Pivot/SpriteFlipper"]
-material = SubResource("ShaderMaterial_gf2bl")
+[node name="Sprite2D" type="Sprite2D" parent="Pivot"]
+modulate = Color(0.184314, 0.337255, 1, 1)
+position = Vector2(0, -1)
 scale = Vector2(3, 3)
 texture = ExtResource("2_jaoer")
 offset = Vector2(0, -16.07)
 hframes = 16
-
-[node name="walljumpdetection" type="RayCast2D" parent="Pivot/SpriteFlipper"]
-target_position = Vector2(23, 0)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_i66ns")
-debug_color = Color(0.915824, 8.04746e-05, 0.711425, 0.42)
+script = ExtResource("3_jaoer")
+metadata/_custom_type_script = "uid://boyu13ou48osb"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -638,6 +583,7 @@ tree_root = SubResource("AnimationNodeStateMachine_utsw1")
 anim_player = NodePath("../AnimationPlayer")
 
 [node name="Hitbox" type="Area2D" parent="."]
+modulate = Color(0.796078, 0.227451, 0.313726, 1)
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("7_mt4e1")
@@ -648,24 +594,28 @@ metadata/_custom_type_script = "uid://byvx4cft0ao7w"
 shape = SubResource("CapsuleShape2D_s08of")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="."]
-script = ExtResource("10_mt4e1")
-metadata/_custom_type_script = "uid://c8v8vjfhnbg10"
+[node name="Hurtbox2" type="Area2D" parent="."]
+script = ExtResource("8_jaoer")
+metadata/_custom_type_script = "uid://gj64baqfohid"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox2"]
+modulate = Color(1, 1, 0, 1)
 shape = SubResource("CapsuleShape2D_3aesf")
 
-[node name="HealthComponent" type="Node" parent="."]
-script = ExtResource("11_7d0q2")
-metadata/_custom_type_script = "uid://b525b7xje3hvk"
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_i66ns")
+
+[node name="HealthComponent2" type="Node" parent="."]
+script = ExtResource("9_jaoer")
+metadata/_custom_type_script = "uid://cdmuybmwt8tu4"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
-offset_left = 874.0
-offset_top = 1.0
-offset_right = 1152.0
-offset_bottom = 60.0
+offset_left = 864.0
+offset_top = 11.0
+offset_right = 1134.0
+offset_bottom = 68.0
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
@@ -674,15 +624,13 @@ theme_override_constants/margin_bottom = 16
 [node name="HealthBar" type="ProgressBar" parent="CanvasLayer/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 1
-theme_override_styles/background = SubResource("StyleBoxFlat_dkxmd")
-theme_override_styles/fill = SubResource("StyleBoxFlat_gf2bl")
+theme_override_styles/background = SubResource("StyleBoxFlat_8lhrm")
+theme_override_styles/fill = SubResource("StyleBoxFlat_up5o4")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer"]
 layout_mode = 2
-size_flags_horizontal = 0
 theme_override_constants/margin_left = -15
 
 [node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MarginContainer"]
 layout_mode = 2
-size_flags_horizontal = 0
 text = "3"

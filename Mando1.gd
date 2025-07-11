@@ -15,6 +15,7 @@ extends CharacterBody2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var playback = animation_tree.get("parameters/playback")
+@onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 @onready var pivot: Node2D = $Pivot
 @onready var sprite_flipper: Node2D = $Pivot/SpriteFlipper
@@ -24,7 +25,8 @@ extends CharacterBody2D
 @onready var hurtbox: Hurtbox = $Hurtbox
 @onready var health_bar: ProgressBar = $CanvasLayer/MarginContainer/HealthBar
 @onready var label: Label = $CanvasLayer/MarginContainer/MarginContainer/Label
-
+const HIT = preload("res://Assets/Audio/hit.wav")
+const RESPAWN = preload("res://Assets/Audio/Respawn.wav")
 
 
 @onready var health_component: HealthComponent = $HealthComponent
@@ -43,16 +45,12 @@ var walljump_pressed = false
 var knockback_time = 0
 var is_knockback = false
 
-#Variables PowerUps
-var damage_multiplier := 1.0
-var is_dash_unlimited := false
-
 var state = State.MOVEMENT:
 	set = set_state 
 
 
 #Dash
-@export var dash_speed = 1000
+@export var dash_speed = 1300
 var dash_time = 0.2  # Duración del dash en segundos
 var is_dashing = false
 var dash_direction = Vector2.ZERO
@@ -105,6 +103,9 @@ func respawn() -> void:
 	dead = false
 	health_component.health = health_component.max_health
 	global_position = respawn_position
+	audio_stream_player_2d.stop()
+	audio_stream_player_2d.stream = RESPAWN
+	audio_stream_player_2d.play()
 
 func lost() -> void:
 	print("loserxd")
@@ -146,17 +147,9 @@ func _movement(delta: float) -> void:
 	
 	if dead:
 		velocity = velocity * 0
-		
-	if is_knockback:
-		knockback_time -= delta
-		#velocity = velocity.move_toward(Vector2.ZERO, delta * 500)
-		if knockback_time <= 0.0:
-			is_knockback = false
-	
 	if is_dashing:
 		# Durante el dash, nos movemos solo en la dirección del dash
-		velocity.x = dash_direction.x * dash_speed 
-		velocity.y = dash_direction.y * dash_speed*0.80 + gravity*delta
+		velocity = dash_direction * dash_speed 
 		dash_timer -= delta
 		#impide mantener precionado
 		
@@ -167,7 +160,11 @@ func _movement(delta: float) -> void:
 			pivot.scale.x = sign(raw_x)
 			pivot.rotation = 0
 	
-	
+	if is_knockback:
+		knockback_time -= delta
+		velocity = velocity.move_toward(Vector2.ZERO, delta * 500)
+		if knockback_time <= 0.0:
+			is_knockback = false
 			
 	else:
 		if not is_on_floor() and walljumpdetection.is_colliding():
@@ -234,12 +231,9 @@ func _movement(delta: float) -> void:
 		
 
 func _wall_jump(delta: float) -> void:
-	
-	is_dashing = false
-	
-	var wall_timer = 0.4
-	#if not walljumpdetection.is_colliding():
-	#	state = State.MOVEMENT
+	#var wall_timer = 0.4
+	if not walljumpdetection.is_colliding():
+		state = State.MOVEMENT
 	playback.travel("wall slide")
 	velocity.y += 0.1 * gravity * delta
 	move_and_slide()
@@ -251,12 +245,10 @@ func _wall_jump(delta: float) -> void:
 		playback.travel("wall jump")
 		velocity.y = jump_force
 		velocity.x = - sign(pivot.scale.x) *  jump_force
-		wall_timer -= delta/10
-		if wall_timer <= 0:
-			state = State.MOVEMENT
-		can_dash = true # Posibilidad de hacer dash luego de walljump
-	if not walljumpdetection.is_colliding():
+		#wall_timer -= delta
+		#if wall_timer <= 0:
 		state = State.MOVEMENT
+		can_dash = true # Posibilidad de hacer dash luego de walljump
 		
 	if is_on_floor():
 		state = State.MOVEMENT
@@ -267,9 +259,11 @@ func apply_knockback(direction: Vector2, force: float):
 	var knockback_velocity = direction.normalized() * force
 	velocity = knockback_velocity  # si usas physics-based movement
 	is_knockback = true
-	
+	can_dash = true 	# Posibilidad de hacer dash luego de acertar un ataque
 	knockback_time = 0.5 # segundos de knockback
-	
+	audio_stream_player_2d.stop()
+	audio_stream_player_2d.stream = HIT
+	audio_stream_player_2d.play()
 
 
 func start_dash(direction: Vector2):
@@ -291,9 +285,7 @@ func start_dash(direction: Vector2):
 		pivot.rotation = dash_direction.angle() - PI
 
 	can_dash = false # CAMBIAR A TRUE SOLO PARA DEBUG
-	if is_dash_unlimited == true:
-		can_dash = true
-	
+
 
 #funcion anti drift XD
 func digital_axis(value: float, threshold := 0.5) -> int:
@@ -314,23 +306,3 @@ func set_state(value: State) -> void:
 		var collision_point = walljumpdetection.get_collision_point()
 		global_position.x = collision_point.x + player_collision_shape_2d.shape.radius * sign(sprite_flipper.scale.x)
 		velocity = Vector2.ZERO
-
-
-
-func apply_powerup(type: String):
-	match type:
-		"damage":
-			damage_multiplier = 2.0
-			print("🗡️ Daño duplicado!")
-			await get_tree().create_timer(5.0).timeout
-			damage_multiplier = 1.0
-		"dash":
-			is_dash_unlimited = true
-			print("⚡ Dash libre!")
-			await get_tree().create_timer(5.0).timeout
-			is_dash_unlimited = false
-		"heal":
-			stocks += 1
-			print("❤️ Salud restaurada!")
-			print(str(stocks))
-			label.text = " %d " %stocks

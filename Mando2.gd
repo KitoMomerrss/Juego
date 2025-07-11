@@ -10,25 +10,18 @@ extends CharacterBody2D
 
 @onready var collision_shape_2d: CollisionShape2D = $Hitbox/CollisionShape2D
 
-@onready var collision_shape_2d_2: CollisionShape2D = $CollisionShape2D2
-
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var playback = animation_tree.get("parameters/playback")
 
 @onready var pivot: Node2D = $Pivot
 @onready var sprite_flipper: Node2D = $Pivot/SpriteFlipper
-@onready var walljumpdetection: RayCast2D = $Pivot/SpriteFlipper/walljumpdetection
-
 
 @onready var hurtbox_2: Hurtbox2 = $Hurtbox2
-@onready var health_bar: ProgressBar = $CanvasLayer/MarginContainer/HealthBar
-@onready var label: Label = $CanvasLayer/MarginContainer/MarginContainer/Label
-
-
 
 @onready var health_component_2: HealthComponent2 = $HealthComponent2
-
+@onready var health_bar: ProgressBar = $CanvasLayer/MarginContainer/HealthBar
+@onready var label: Label = $CanvasLayer/MarginContainer/MarginContainer/Label
 
 
 var dead = false
@@ -38,14 +31,9 @@ var loser = false
 
 var dash_pressed_last_frame = false
 var jump_pressed = false
-var jump_just_pressed := false
-var walljump_pressed = false
 
 var knockback_time = 0
 var is_knockback = false
-
-var state = State.MOVEMENT:
-	set = set_state 
 
 
 #Dash
@@ -56,12 +44,9 @@ var dash_direction = Vector2.ZERO
 var dash_timer = 0.0
 var can_dash = true
 
-enum State {
-	MOVEMENT,
-	WALL_JUMP
-}
 
 func _ready() -> void:
+	
 	stocks = GlobalState.starting_lives
 	label.text = " %d " %stocks
 	
@@ -70,9 +55,9 @@ func _ready() -> void:
 	health_component_2.health_changed.connect(_on_health_changed)
 	health_bar.value = health_component_2.health
 	health_component_2.died.connect(death)
+	label.text = "%d" %stocks
+	stocks = GlobalState.starting_lives
 	
-	
-	 
 func _on_health_changed(value: float) -> void:
 	
 	health_bar.value = value
@@ -87,13 +72,11 @@ func death() -> void:
 		#if stocks = 0:
 		#	get.tree...
 		#	queue.free()
-	
 		respawn()
+		
 	if stocks == 0:
 		lost()
 		queue_free()
-		
-		
 	
 func respawn() -> void:
 	
@@ -102,23 +85,15 @@ func respawn() -> void:
 	dead = false
 	health_component_2.health = health_component_2.max_health
 	global_position = respawn_position
-
+	
 func lost() -> void:
 	print("loserxd")
 	loser = true
 	get_parent().get_parent().game_progress()
 	
-
+	
 func _physics_process(delta: float) -> void:
-	match state:
-		State.MOVEMENT:
-			_movement(delta)
-		State.WALL_JUMP:
-			_wall_jump(delta)
-
-
-
-func _movement(delta: float) -> void:
+	
 	
 	#probar mando
 	var raw_x = Input.get_joy_axis(device_id, 0)
@@ -126,18 +101,18 @@ func _movement(delta: float) -> void:
 	
 	var x = digital_axis(raw_x)
 	var y = digital_axis(raw_y)
+	
 
-
-	var mando_direction = Vector2(x, y)
+	var mando_direction = Vector2(x, y)#.normalized()
 	
 	#original
-	var move_input = Input.get_axis("1.Move.L", "1.Move.R")
+	var move_input = Input.get_axis("2.move.L", "2.move.R")
 	var input_direction = Vector2.ZERO
 
 	# Detectar inputs de movimiento
 	#input_direction.x = Input.get_action_strength("1.Move.R") - Input.get_action_strength("1.Move.R")
-	input_direction.x = Input.get_axis("1.Move.L", "1.Move.R")
-	input_direction.y = Input.get_action_strength("1.Move.D") - Input.get_action_strength("1.Move.U")
+	input_direction.x = Input.get_axis("2.move.L", "2.move.R")
+	input_direction.y = Input.get_action_strength("2.move.D") - Input.get_action_strength("2.move.U")
 	input_direction = input_direction.normalized()
 	
 	
@@ -149,48 +124,55 @@ func _movement(delta: float) -> void:
 		dash_timer -= delta
 		#impide mantener precionado
 		
-		if dash_timer <= 0:
+		if dash_timer <= 0: # Luego de terminar el dash
 			is_dashing = false
-			velocity = Vector2.ZERO
+			velocity.y = 0
 			# Resetea la rotación
-			pivot.scale.x = sign(raw_x)
+			pivot.scale.x = 1
 			pivot.rotation = 0
 	
 	if is_knockback:
 		knockback_time -= delta
-		#velocity = velocity.move_toward(Vector2.ZERO, delta * 500)
+		velocity = velocity.move_toward(Vector2.ZERO, delta * 500)
 		if knockback_time <= 0.0:
 			is_knockback = false
 			
 	else:
-		if not is_on_floor() and walljumpdetection.is_colliding():
-			if is_dashing == true: # Esto arregla un poco el walljump desde dash diagonal
-				pivot.scale.x = sign(raw_x)
-				pivot.rotation = 0
-			state = State.WALL_JUMP
-			
-		 
-		if not is_dashing and not is_knockback:
+		# Movimiento normal
+		#var move_input = Input.get_axis("1.Move.L", "1.Move.R")
+		#velocity.x = move_toward(velocity.x, speed * move_input, acceleration * delta)
+		
+		#velocity.x = (Input.get_action_strength("2.move.R") - Input.get_action_strength("2.move.L")) * speed 
+		if not is_dashing:
 		#moverse con mando
-			velocity.x = move_toward(velocity.x, speed * x, delta * acceleration)
-			#velocity.x = x  * speed
-			
+			velocity.x = (x) * speed
+		
 		# Aplicar gravedad
 			velocity.y += gravity*delta
 		
+		# Saltar
+		
+		#saltar mando solo
+		#if is_on_floor() and Input.is_joy_button_pressed(device_id, 1):
+		#	velocity.y = jump_force
+			
+		#if is_on_floor() and (Input.is_action_just_pressed("1.Jump") or Input.is_joy_button_pressed(device_id, 1)):
+			#velocity.y = jump_force
+			
+		#if is_on_floor() and Input.is_action_just_pressed("2.jump"):
+		#	velocity.y = jump_force
 		var jump_input = Input.is_joy_button_pressed(device_id, 1)
 		if jump_input and not jump_pressed and is_on_floor():
 			velocity.y = jump_force
-			#print("¡Jugador saltó!")
 		jump_pressed = jump_input
 		
 		
 		# Iniciar dash
 		
 		
-		
+		#if can_dash and (Input.is_action_just_pressed("1.Dash") or Input.is_joy_button_pressed(device_id, 0)):
 		var dash_now = Input.is_joy_button_pressed(device_id, 0)
-		if can_dash and ((dash_now and not dash_pressed_last_frame) or (Input.is_action_just_pressed("1.Dash"))):
+		if can_dash and dash_now and not dash_pressed_last_frame:
 			if mando_direction != Vector2.ZERO:
 				start_dash(mando_direction)
 			else:
@@ -210,7 +192,7 @@ func _movement(delta: float) -> void:
 	# Animaciones
 	if x != 0:
 		#sprite_flipper.scale.x = sign(move_input)
-		pivot.scale.x = sign(x) # huh
+		pivot.scale.x = sign(x)
 	if is_on_floor():
 		if abs(velocity.x) > 30:
 			playback.travel("RUN")
@@ -226,41 +208,11 @@ func _movement(delta: float) -> void:
 		playback.travel("dash")
 		
 
-func _wall_jump(delta: float) -> void:
-	
-	is_dashing = false
-	
-	var wall_timer = 0.4
-	#if not walljumpdetection.is_colliding():
-	#	state = State.MOVEMENT
-	playback.travel("wall slide")
-	velocity.y += 0.1 * gravity * delta
-	move_and_slide()
-	
-	jump_just_pressed = Input.is_joy_button_pressed(device_id, 1)
-	if jump_just_pressed and not walljump_pressed:
-		print("walljump")
-		pivot.scale.x *= -1
-		playback.travel("wall jump")
-		velocity.y = jump_force
-		velocity.x = - sign(pivot.scale.x) *  jump_force
-		wall_timer -= delta/10
-		if wall_timer <= 0:
-			state = State.MOVEMENT
-		can_dash = true # Posibilidad de hacer dash luego de walljump
-	if not walljumpdetection.is_colliding():
-		state = State.MOVEMENT
-		
-	if is_on_floor():
-		state = State.MOVEMENT
-	
-	walljump_pressed = jump_just_pressed
 
 func apply_knockback(direction: Vector2, force: float):
 	var knockback_velocity = direction.normalized() * force
 	velocity = knockback_velocity  # si usas physics-based movement
 	is_knockback = true
-	can_dash = true 	# Posibilidad de hacer dash luego de acertar un ataque
 	knockback_time = 0.5 # segundos de knockback
 	
 
@@ -283,25 +235,12 @@ func start_dash(direction: Vector2):
 	if pivot.rotation <= -2 or 2 <= pivot.rotation:
 		pivot.rotation = dash_direction.angle() - PI
 
-	can_dash = false # CAMBIAR A TRUE SOLO PARA DEBUG
-
+	can_dash = true # CAMBIAR A FALSE EVENTUALMENTE
 
 #funcion anti drift XD
 func digital_axis(value: float, threshold := 0.5) -> int:
 	if value > threshold:
-		return value
+		return 1
 	elif value < -threshold:
-		return value
+		return -1
 	return 0
-	
-func set_state(value: State) -> void:
-	var old_state = state
-	var new_state = value
-	
-	
-	state = new_state
-	
-	if new_state == State.WALL_JUMP:
-		var collision_point = walljumpdetection.get_collision_point()
-		global_position.x = collision_point.x + collision_shape_2d_2.shape.radius * sign(sprite_flipper.scale.x)
-		velocity = Vector2.ZERO

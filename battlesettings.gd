@@ -25,8 +25,7 @@ func _ready() -> void:
 	menos_stock.pressed.connect(func(): _minus_stock())
 	mas_stock.pressed.connect(func(): _add_stock())
 	
-	si_pu.pressed.connect(func(): power_up(0))
-	no_pu.pressed.connect(func(): power_up(1))
+	
 	
 func _on_stage_button_pressed(stage_index):
 	GlobalState.selected_scenario_index = stage_index
@@ -52,9 +51,4 @@ func _minus_stock():
 func update_lives_label():
 	$MarginContainer3/PanelContainer/Vidas.text = str(GlobalState.starting_lives)
 
-func power_up(option: int):
-	if option == 0:
-		GlobalState.power_up = true
-	else:
-		GlobalState.power_up = false
 	

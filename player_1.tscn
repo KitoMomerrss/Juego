@@ -1,12 +1,14 @@
-[gd_scene load_steps=58 format=3 uid="uid://cq6quix4khac1"]
+[gd_scene load_steps=60 format=3 uid="uid://cq6quix4khac1"]
 
 [ext_resource type="Script" uid="uid://d0imyxekeeaq" path="res://Mando1.gd" id="1_txlgs"]
 [ext_resource type="Texture2D" uid="uid://dn5365af6g7ow" path="res://Assets/Sprite/FREE_Samurai 2D Pixel Art v1.2/FREE_Samurai 2D Pixel Art v1.2/Sprites/IDLE.png" id="2_buxg0"]
 [ext_resource type="Texture2D" uid="uid://ckxkhswicuhbs" path="res://Assets/Sprite/FREE_Samurai 2D Pixel Art v1.2/FREE_Samurai 2D Pixel Art v1.2/Sprites/RUN.png" id="3_txlgs"]
+[ext_resource type="AudioStream" uid="uid://ql37cpokn623" path="res://Assets/Audio/hit.wav" id="4_ugj0w"]
 [ext_resource type="Texture2D" uid="uid://ca3oaajdf73yf" path="res://Assets/Sprite/Premium/JUMP.png" id="5_gf2bl"]
 [ext_resource type="Texture2D" uid="uid://cmbvvvco3aj3t" path="res://Assets/Sprite/Premium/HURT.png" id="6_72vom"]
 [ext_resource type="Texture2D" uid="uid://dj6524odbakta" path="res://Assets/Sprite/Premium/DASH.png" id="6_dkxmd"]
 [ext_resource type="Texture2D" uid="uid://c6cs2567itae" path="res://Assets/Sprite/Premium/WALL SLIDE.png" id="7_gf2bl"]
+[ext_resource type="AudioStream" uid="uid://dpffrl42h3krv" path="res://Assets/Audio/dsah_whoosh.wav" id="7_n0cnt"]
 [ext_resource type="Script" uid="uid://byvx4cft0ao7w" path="res://hitbox.gd" id="7_ugj0w"]
 [ext_resource type="Texture2D" uid="uid://c540c7453i7tw" path="res://Assets/Sprite/Premium/WALL JUMP.png" id="8_72vom"]
 [ext_resource type="Script" uid="uid://c8v8vjfhnbg10" path="res://hurtbox.gd" id="8_n0cnt"]
@@ -70,6 +72,21 @@ tracks/3/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/4/type = "audio"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AudioStreamPlayer2D")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"clips": [{
+"end_offset": 0.24,
+"start_offset": 0.0,
+"stream": ExtResource("4_ugj0w")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/4/use_blend = true
 
 [sub_resource type="Animation" id="Animation_txlgs"]
 resource_name = "Idle"
@@ -294,6 +311,21 @@ tracks/4/keys = {
 "update": 0,
 "values": [Color(1, 0.105882, 0.0862745, 1), Color(1, 1, 1, 1)]
 }
+tracks/5/type = "audio"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AudioStreamPlayer2D")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("7_n0cnt")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/5/use_blend = true
 
 [sub_resource type="Animation" id="Animation_1vtoj"]
 resource_name = "fall"
@@ -589,7 +621,7 @@ states/jump/position = Vector2(451, -187)
 "states/wall slide/node" = SubResource("AnimationNodeAnimation_x4m56")
 "states/wall slide/position" = Vector2(510, -308)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_8nydg"), "Idle", "RUN", SubResource("AnimationNodeStateMachineTransition_fvdx0"), "RUN", "dash", SubResource("AnimationNodeStateMachineTransition_efhue"), "Idle", "dash", SubResource("AnimationNodeStateMachineTransition_3phom"), "dash", "RUN", SubResource("AnimationNodeStateMachineTransition_jrl08"), "RUN", "Idle", SubResource("AnimationNodeStateMachineTransition_qdsuw"), "dash", "Idle", SubResource("AnimationNodeStateMachineTransition_k0xj2"), "Idle", "jump", SubResource("AnimationNodeStateMachineTransition_yef3s"), "jump", "fall", SubResource("AnimationNodeStateMachineTransition_mviyr"), "jump", "dash", SubResource("AnimationNodeStateMachineTransition_d614h"), "fall", "dash", SubResource("AnimationNodeStateMachineTransition_dnvjy"), "dash", "fall", SubResource("AnimationNodeStateMachineTransition_cu0p0"), "fall", "RUN", SubResource("AnimationNodeStateMachineTransition_oexav"), "RUN", "jump", SubResource("AnimationNodeStateMachineTransition_43kbg"), "Hit", "fall", SubResource("AnimationNodeStateMachineTransition_txlgs"), "Hit", "Idle", SubResource("AnimationNodeStateMachineTransition_dkxmd"), "jump", "wall slide", SubResource("AnimationNodeStateMachineTransition_u34kq"), "wall slide", "wall jump", SubResource("AnimationNodeStateMachineTransition_1vtoj"), "wall jump", "fall", SubResource("AnimationNodeStateMachineTransition_x4625"), "fall", "wall slide", SubResource("AnimationNodeStateMachineTransition_tenil"), "wall slide", "fall", SubResource("AnimationNodeStateMachineTransition_72vom")]
-graph_offset = Vector2(-159, -83.4445)
+graph_offset = Vector2(-159, -344)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s08of"]
 radius = 19.0
@@ -608,6 +640,7 @@ bg_color = Color(0.24742, 0.771386, 3.85046e-07, 1)
 [node name="Player 1" type="CharacterBody2D"]
 collision_layer = 2
 script = ExtResource("1_txlgs")
+jump_force = -600
 
 [node name="Pivot" type="Node2D" parent="."]
 
@@ -682,3 +715,5 @@ theme_override_constants/margin_left = -15
 layout_mode = 2
 size_flags_horizontal = 0
 text = "3"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

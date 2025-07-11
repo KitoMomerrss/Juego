@@ -20,10 +20,9 @@ var regen_timer: float = 0.0
 func take_damage(damage):
 	health -= damage
 	
-	
 func _process(delta):
 	regen_timer += delta
-	if regen_timer >= 0.3:
+	if regen_timer >= 3.0:
 		regen_timer = 0.0
-		health = min(health + 1, max_health)
+		health = min(health + 10, max_health)
 	

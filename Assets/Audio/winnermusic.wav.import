@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://dc84jvob872n7"
-path="res://.godot/imported/winnermusic.wav-d26c521cb6da39a6514d5c3a961e3cb1.sample"
+path="res://.godot/imported/winnermusic.wav-49d8d3ac23dbf4e27e8a7293d18475da.sample"
 
 [deps]
 
-source_file="res://Audio/winnermusic.wav"
-dest_files=["res://.godot/imported/winnermusic.wav-d26c521cb6da39a6514d5c3a961e3cb1.sample"]
+source_file="res://Assets/Audio/winnermusic.wav"
+dest_files=["res://.godot/imported/winnermusic.wav-49d8d3ac23dbf4e27e8a7293d18475da.sample"]
 
 [params]
 
