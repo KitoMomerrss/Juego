@@ -43,12 +43,16 @@ var walljump_pressed = false
 var knockback_time = 0
 var is_knockback = false
 
+#Variables PowerUps
+var damage_multiplier := 1.0
+var is_dash_unlimited := false
+
 var state = State.MOVEMENT:
 	set = set_state 
 
 
 #Dash
-@export var dash_speed = 1300
+@export var dash_speed = 1000
 var dash_time = 0.2  # Duración del dash en segundos
 var is_dashing = false
 var dash_direction = Vector2.ZERO
@@ -142,9 +146,17 @@ func _movement(delta: float) -> void:
 	
 	if dead:
 		velocity = velocity * 0
+		
+	if is_knockback:
+		knockback_time -= delta
+		#velocity = velocity.move_toward(Vector2.ZERO, delta * 500)
+		if knockback_time <= 0.0:
+			is_knockback = false
+	
 	if is_dashing:
 		# Durante el dash, nos movemos solo en la dirección del dash
-		velocity = dash_direction * dash_speed 
+		velocity.x = dash_direction.x * dash_speed 
+		velocity.y = dash_direction.y * dash_speed*0.80 + gravity*delta
 		dash_timer -= delta
 		#impide mantener precionado
 		
@@ -155,11 +167,7 @@ func _movement(delta: float) -> void:
 			pivot.scale.x = sign(raw_x)
 			pivot.rotation = 0
 	
-	if is_knockback:
-		knockback_time -= delta
-		#velocity = velocity.move_toward(Vector2.ZERO, delta * 500)
-		if knockback_time <= 0.0:
-			is_knockback = false
+	
 			
 	else:
 		if not is_on_floor() and walljumpdetection.is_colliding():
@@ -259,7 +267,7 @@ func apply_knockback(direction: Vector2, force: float):
 	var knockback_velocity = direction.normalized() * force
 	velocity = knockback_velocity  # si usas physics-based movement
 	is_knockback = true
-	can_dash = true 	# Posibilidad de hacer dash luego de acertar un ataque
+	
 	knockback_time = 0.5 # segundos de knockback
 	
 
@@ -283,7 +291,9 @@ func start_dash(direction: Vector2):
 		pivot.rotation = dash_direction.angle() - PI
 
 	can_dash = false # CAMBIAR A TRUE SOLO PARA DEBUG
-
+	if is_dash_unlimited == true:
+		can_dash = true
+	
 
 #funcion anti drift XD
 func digital_axis(value: float, threshold := 0.5) -> int:
@@ -304,3 +314,23 @@ func set_state(value: State) -> void:
 		var collision_point = walljumpdetection.get_collision_point()
 		global_position.x = collision_point.x + player_collision_shape_2d.shape.radius * sign(sprite_flipper.scale.x)
 		velocity = Vector2.ZERO
+
+
+
+func apply_powerup(type: String):
+	match type:
+		"damage":
+			damage_multiplier = 2.0
+			print("🗡️ Daño duplicado!")
+			await get_tree().create_timer(5.0).timeout
+			damage_multiplier = 1.0
+		"dash":
+			is_dash_unlimited = true
+			print("⚡ Dash libre!")
+			await get_tree().create_timer(5.0).timeout
+			is_dash_unlimited = false
+		"heal":
+			stocks += 1
+			print("❤️ Salud restaurada!")
+			print(str(stocks))
+			label.text = " %d " %stocks

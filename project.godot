@@ -20,6 +20,11 @@ config/icon="res://icon.svg"
 Debug="*res://autoloads/debug.gd"
 GlobalState="*res://autoloads/global_state.gd"
 
+[display]
+
+window/size/mode=2
+window/stretch/mode="viewport"
+
 [input]
 
 1.Move.L={
