@@ -4,6 +4,7 @@ extends Control
 @onready var rematch: Button = %Rematch
 @onready var mainmenu: Button = %Mainmenu
 @onready var label: Label = $Container/PanelContainer/Label
+@onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
 
 
 

@@ -3,6 +3,7 @@ extends Node
 @onready var player_1: CharacterBody2D = $"Players/Player 1"
 @onready var player_2: CharacterBody2D = $"Players/Player 2"
 @onready var victory_screen: Control = $CanvasLayer/VictoryScreen
+@onready var audio_stream_player_2: AudioStreamPlayer = $CanvasLayer/VictoryScreen/AudioStreamPlayer2
 
 
 
@@ -38,7 +39,7 @@ func load_selected_scenario():
 	
 		
 func game_progress() -> void:
-	
+	audio_stream_player_2.play()
 	if player_1.loser:
 		victory_screen.visible = true
 		victory_screen.label.text = "Player 2 Wins!!!"
