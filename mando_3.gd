@@ -10,7 +10,7 @@ extends CharacterBody2D
 
 @onready var collision_shape_2d: CollisionShape2D = $Hitbox/CollisionShape2D
 
-@onready var collision_shape_2d_2: CollisionShape2D = $CollisionShape2D2
+@onready var player_collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var animation_tree: AnimationTree = $AnimationTree
@@ -21,14 +21,13 @@ extends CharacterBody2D
 @onready var walljumpdetection: RayCast2D = $Pivot/SpriteFlipper/walljumpdetection
 
 
-@onready var hurtbox_2: Hurtbox2 = $Hurtbox2
+@onready var hurtbox: Hurtbox = $Hurtbox
 @onready var health_bar: ProgressBar = $CanvasLayer/MarginContainer/HealthBar
 @onready var label: Label = $CanvasLayer/MarginContainer/MarginContainer/Label
 
 
 
-@onready var health_component_2: HealthComponent2 = $HealthComponent2
-
+@onready var health_component: HealthComponent = $HealthComponent
 
 
 var dead = false
@@ -67,9 +66,9 @@ func _ready() -> void:
 	
 	if respawn_position == Vector2.ZERO:
 		respawn_position = global_position
-	health_component_2.health_changed.connect(_on_health_changed)
-	health_bar.value = health_component_2.health
-	health_component_2.died.connect(death)
+	health_component.health_changed.connect(_on_health_changed)
+	health_bar.value = health_component.health
+	health_component.died.connect(death)
 	
 	
 	 
@@ -100,7 +99,7 @@ func respawn() -> void:
 	is_knockback = false
 	velocity *= 0
 	dead = false
-	health_component_2.health = health_component_2.max_health
+	health_component.health = health_component.max_health
 	global_position = respawn_position
 
 func lost() -> void:
@@ -303,5 +302,5 @@ func set_state(value: State) -> void:
 	
 	if new_state == State.WALL_JUMP:
 		var collision_point = walljumpdetection.get_collision_point()
-		global_position.x = collision_point.x + collision_shape_2d_2.shape.radius * sign(sprite_flipper.scale.x)
+		global_position.x = collision_point.x + player_collision_shape_2d.shape.radius * sign(sprite_flipper.scale.x)
 		velocity = Vector2.ZERO

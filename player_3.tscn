@@ -1,16 +1,16 @@
-[gd_scene load_steps=58 format=3 uid="uid://cq6quix4khac1"]
+[gd_scene load_steps=58 format=3 uid="uid://bmjs0q2v8k3ij"]
 
-[ext_resource type="Script" uid="uid://d0imyxekeeaq" path="res://Mando1.gd" id="1_txlgs"]
-[ext_resource type="Texture2D" uid="uid://dn5365af6g7ow" path="res://Assets/Sprite/FREE_Samurai 2D Pixel Art v1.2/FREE_Samurai 2D Pixel Art v1.2/Sprites/IDLE.png" id="2_buxg0"]
-[ext_resource type="Texture2D" uid="uid://ckxkhswicuhbs" path="res://Assets/Sprite/FREE_Samurai 2D Pixel Art v1.2/FREE_Samurai 2D Pixel Art v1.2/Sprites/RUN.png" id="3_txlgs"]
-[ext_resource type="Texture2D" uid="uid://ca3oaajdf73yf" path="res://Assets/Sprite/Premium/JUMP.png" id="5_gf2bl"]
-[ext_resource type="Texture2D" uid="uid://cmbvvvco3aj3t" path="res://Assets/Sprite/Premium/HURT.png" id="6_72vom"]
-[ext_resource type="Texture2D" uid="uid://dj6524odbakta" path="res://Assets/Sprite/Premium/DASH.png" id="6_dkxmd"]
-[ext_resource type="Texture2D" uid="uid://c6cs2567itae" path="res://Assets/Sprite/Premium/WALL SLIDE.png" id="7_gf2bl"]
-[ext_resource type="Script" uid="uid://byvx4cft0ao7w" path="res://hitbox.gd" id="7_ugj0w"]
-[ext_resource type="Texture2D" uid="uid://c540c7453i7tw" path="res://Assets/Sprite/Premium/WALL JUMP.png" id="8_72vom"]
-[ext_resource type="Script" uid="uid://c8v8vjfhnbg10" path="res://hurtbox.gd" id="8_n0cnt"]
-[ext_resource type="Script" uid="uid://b525b7xje3hvk" path="res://health_componnent.gd" id="9_dkxmd"]
+[ext_resource type="Script" uid="uid://df77mqgunc0ma" path="res://mando_3.gd" id="1_dwbw6"]
+[ext_resource type="Texture2D" uid="uid://dn5365af6g7ow" path="res://Assets/Sprite/FREE_Samurai 2D Pixel Art v1.2/FREE_Samurai 2D Pixel Art v1.2/Sprites/IDLE.png" id="2_w8d8i"]
+[ext_resource type="Texture2D" uid="uid://cmbvvvco3aj3t" path="res://Assets/Sprite/Premium/HURT.png" id="3_l6pkw"]
+[ext_resource type="Texture2D" uid="uid://ckxkhswicuhbs" path="res://Assets/Sprite/FREE_Samurai 2D Pixel Art v1.2/FREE_Samurai 2D Pixel Art v1.2/Sprites/RUN.png" id="4_jbco1"]
+[ext_resource type="Texture2D" uid="uid://dj6524odbakta" path="res://Assets/Sprite/Premium/DASH.png" id="5_6rrsb"]
+[ext_resource type="Texture2D" uid="uid://ca3oaajdf73yf" path="res://Assets/Sprite/Premium/JUMP.png" id="6_ws8r4"]
+[ext_resource type="Texture2D" uid="uid://c540c7453i7tw" path="res://Assets/Sprite/Premium/WALL JUMP.png" id="7_yxmtl"]
+[ext_resource type="Texture2D" uid="uid://c6cs2567itae" path="res://Assets/Sprite/Premium/WALL SLIDE.png" id="8_dh5kl"]
+[ext_resource type="Script" uid="uid://byvx4cft0ao7w" path="res://hitbox.gd" id="9_i8tma"]
+[ext_resource type="Script" uid="uid://c8v8vjfhnbg10" path="res://hurtbox.gd" id="10_s15rn"]
+[ext_resource type="Script" uid="uid://b525b7xje3hvk" path="res://health_componnent.gd" id="11_nilxm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gf2bl"]
 
@@ -32,7 +32,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("6_72vom")]
+"values": [ExtResource("3_l6pkw")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -98,7 +98,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_buxg0")]
+"values": [ExtResource("2_w8d8i")]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -137,7 +137,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_buxg0")]
+"values": [ExtResource("2_w8d8i")]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -191,7 +191,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("3_txlgs")]
+"values": [ExtResource("4_jbco1")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -244,7 +244,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("6_dkxmd")]
+"values": [ExtResource("5_6rrsb")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -310,7 +310,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("5_gf2bl")]
+"values": [ExtResource("6_ws8r4")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -364,7 +364,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("5_gf2bl")]
+"values": [ExtResource("6_ws8r4")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -417,7 +417,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("8_72vom")]
+"values": [ExtResource("7_yxmtl")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -471,7 +471,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_gf2bl")]
+"values": [ExtResource("8_dh5kl")]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -605,9 +605,9 @@ bg_color = Color(0, 0, 0, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gf2bl"]
 bg_color = Color(0.24742, 0.771386, 3.85046e-07, 1)
 
-[node name="Player 1" type="CharacterBody2D"]
+[node name="Player 3" type="CharacterBody2D"]
 collision_layer = 2
-script = ExtResource("1_txlgs")
+script = ExtResource("1_dwbw6")
 
 [node name="Pivot" type="Node2D" parent="."]
 
@@ -616,7 +616,7 @@ script = ExtResource("1_txlgs")
 [node name="Sprite2D" type="Sprite2D" parent="Pivot/SpriteFlipper"]
 material = SubResource("ShaderMaterial_gf2bl")
 scale = Vector2(3, 3)
-texture = ExtResource("2_buxg0")
+texture = ExtResource("2_w8d8i")
 offset = Vector2(0, -16.07)
 hframes = 16
 
@@ -625,6 +625,7 @@ target_position = Vector2(23, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_i66ns")
+debug_color = Color(0.915824, 8.04746e-05, 0.711425, 0.42)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -636,7 +637,9 @@ tree_root = SubResource("AnimationNodeStateMachine_utsw1")
 anim_player = NodePath("../AnimationPlayer")
 
 [node name="Hitbox" type="Area2D" parent="."]
-script = ExtResource("7_ugj0w")
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("9_i8tma")
 damage = 30
 metadata/_custom_type_script = "uid://byvx4cft0ao7w"
 
@@ -645,23 +648,23 @@ shape = SubResource("CapsuleShape2D_s08of")
 disabled = true
 
 [node name="Hurtbox" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 2
-script = ExtResource("8_n0cnt")
+script = ExtResource("10_s15rn")
 metadata/_custom_type_script = "uid://c8v8vjfhnbg10"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CapsuleShape2D_3aesf")
 
 [node name="HealthComponent" type="Node" parent="."]
-script = ExtResource("9_dkxmd")
+script = ExtResource("11_nilxm")
 metadata/_custom_type_script = "uid://b525b7xje3hvk"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
-offset_right = 278.0
-offset_bottom = 59.0
+offset_left = 874.0
+offset_top = 1.0
+offset_right = 1152.0
+offset_bottom = 60.0
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
