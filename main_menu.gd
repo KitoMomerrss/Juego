@@ -10,4 +10,6 @@ extends Node
 
 func _ready() -> void:
 	start.pressed.connect(func(): get_tree().change_scene_to_file("res://battlesettings.tscn"))
+	credits.pressed.connect(func(): get_tree().change_scene_to_file("res://creditscreen.tscn"))
 	quit.pressed.connect(func(): get_tree().quit())
+	

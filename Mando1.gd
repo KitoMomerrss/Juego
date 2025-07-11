@@ -259,7 +259,6 @@ func apply_knockback(direction: Vector2, force: float):
 	var knockback_velocity = direction.normalized() * force
 	velocity = knockback_velocity  # si usas physics-based movement
 	is_knockback = true
-	can_dash = true 	# Posibilidad de hacer dash luego de acertar un ataque
 	knockback_time = 0.5 # segundos de knockback
 	
 

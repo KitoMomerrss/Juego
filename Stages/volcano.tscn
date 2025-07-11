@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=4 uid="uid://cjvqs1c634s4e"]
+[gd_scene load_steps=8 format=4 uid="uid://cjvqs1c634s4e"]
 
 [ext_resource type="Texture2D" uid="uid://bv7fra5evnf70" path="res://icon.svg" id="2_4q4w3"]
 [ext_resource type="TileSet" uid="uid://b1tuidxofwijy" path="res://Assets/Tiles/volcano_tileset.tres" id="4_g8wfw"]
 [ext_resource type="Texture2D" uid="uid://c41q2kl1ym3wk" path="res://Assets/Tiles/free_volcano_tileset/images/Background.png" id="4_jldjm"]
+[ext_resource type="PackedScene" uid="uid://b0bxftjyb1tlo" path="res://pause_menu.tscn" id="4_p7rt2"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_7dm0k"]
 distance = -160.0
@@ -77,3 +78,18 @@ shape = SubResource("RectangleShape2D_be7xp")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
 position = Vector2(1306, 384)
 shape = SubResource("RectangleShape2D_be7xp")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("4_p7rt2")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 104.0
+offset_top = -68.0
+offset_right = 280.0
+offset_bottom = 187.0
+grow_horizontal = 2
+grow_vertical = 2

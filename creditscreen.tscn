@@ -1,0 +1,76 @@
+[gd_scene load_steps=2 format=3 uid="uid://cjgjrn22nex88"]
+
+[ext_resource type="Script" uid="uid://crcd1ulhh268x" path="res://creditscreen.gd" id="1_wlxci"]
+
+[node name="Credits" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wlxci")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -264.0
+offset_top = -299.0
+offset_right = 264.0
+offset_bottom = 299.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[center] [font_size={30}]Staff Credits [/font_size]
+[font_size={16}]
+Game by
+[font_size={18}]GOTY of the Year
+[font_size={13}]Formed by
+Jorge Álamos (Kito)
+Maximiliano Miranda (Mox_ndwn)
+Gustavo Rifo (Fifo)[/font_size]
+
+Assets
+
+[font_size={13}]Main Character Sprite
+Samurai 2D Pixel Art by [color=yellow]Mattz Art (xzany.itch.io)[/color][/font_size]
+
+[font_size={13}]Dungeon Stage Tile set
+[color=dodger_blue]Dungeon[/color] Tile Set by [color=yellow]incolgames.itch.io[/color][/font_size]
+
+[font_size={13}]Volcano Stage Tile set
+[color=orange]Volcano[/color] - Free Platform Tileset by [color=yellow]ludicarts.itch.io[/color][/font_size]
+
+[font_size={13}]Power-Up Sprites
+Heart-Shaped Red Potion Bottle by [color=yellow]lornent.itch.io[/color]
+16x16 RPG Item Pack by [color=yellow]alexs-assets.itch.io[/color]
+RPG Item Set by [color=yellow]hernandack.itch.io[/color][/font_size][/font_size]
+
+Sounds
+
+[font_size={13}]SFX
+
+All Sound Effects from [color=yellow]freesound.org[/color][/font_size]
+"
+
+[node name="Back" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -568.0
+offset_top = -316.0
+offset_right = -514.0
+offset_bottom = -285.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "Back"
+metadata/_edit_lock_ = true
